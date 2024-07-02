@@ -1,10 +1,102 @@
 [
     {
-        "name": "Task 1",
-        "description": "Description for Task 1"
+        "name": "Set up project repositories",
+        "description": "Create GitHub repositories for frontend and backend projects."
     },
     {
-        "name": "Task 2",
-        "description": "Description for Task 2"
+        "name": "Set up CI/CD pipeline",
+        "description": "Configure CI/CD pipeline using GitHub Actions for automated testing and deployment."
+    },
+    {
+        "name": "Design database schema",
+        "description": "Create the schema for SQLite database."
+    },
+    {
+        "name": "Develop PDF parsing functionality",
+        "description": "Implement functionality to parse PDF menus and extract text."
+    },
+    {
+        "name": "Implement `/upload` and `/parse` API endpoints",
+        "description": "Create API endpoints for uploading and parsing PDF menus."
+    },
+    {
+        "name": "Develop rules engine for customization logic",
+        "description": "Implement logic for applying healthy substitutions to menu items."
+    },
+    {
+        "name": "Implement `/customize` endpoint",
+        "description": "Create API endpoint for customization logic."
+    },
+    {
+        "name": "Build HomePage component",
+        "description": "Develop the HomePage component in React."
+    },
+    {
+        "name": "Build MenuUploadPage component",
+        "description": "Develop the MenuUploadPage component in React."
+    },
+    {
+        "name": "Integrate frontend with backend for menu upload and parsing",
+        "description": "Ensure seamless integration between frontend and backend for menu upload and parsing."
+    },
+    {
+        "name": "Build CustomizationPage component",
+        "description": "Develop the CustomizationPage component in React."
+    },
+    {
+        "name": "Build SuggestionsPage component",
+        "description": "Develop the SuggestionsPage component in React."
+    },
+    {
+        "name": "Implement `/suggestions`, `/save`, `/rate`, and `/feedback` endpoints",
+        "description": "Create remaining API endpoints for suggestions, saving, rating, and feedback."
+    },
+    {
+        "name": "End-to-end testing and debugging",
+        "description": "Perform comprehensive testing and debugging."
+    },
+    {
+        "name": "Deploy app to Heroku",
+        "description": "Deploy the app to Heroku for hosting."
+    },
+    {
+        "name": "Write unit tests",
+        "description": "Write unit tests for individual components and functions."
+    },
+    {
+        "name": "Conduct code reviews",
+        "description": "Review code to ensure quality and adherence to best practices."
+    },
+    {
+        "name": "Perform user testing",
+        "description": "Conduct user testing to gather feedback and identify issues."
+    },
+    {
+        "name": "Fix bugs",
+        "description": "Address any issues or bugs discovered during testing."
+    },
+    {
+        "name": "Set up monitoring and logging",
+        "description": "Implement monitoring and logging to track app performance and errors."
+    },
+    {
+        "name": "Announce app launch on social media",
+        "description": "Promote the app launch on social media platforms."
+    },
+    {
+        "name": "Create demo video",
+        "description": "Create a short demo video showing how to use the app."
+    },
+    {
+        "name": "Collect user feedback",
+        "description": "Gather feedback from users to improve the app."
+    },
+    {
+        "name": "Plan and implement new features",
+        "description": "Plan and implement new features based on user feedback."
+    },
+    {
+        "name": "Regular maintenance and updates",
+        "description": "Perform regular maintenance and updates to ensure app performance."
     }
 ]
