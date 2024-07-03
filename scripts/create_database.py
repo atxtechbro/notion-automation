@@ -1,6 +1,7 @@
-import json
 import os
+import json
 import requests
+import uuid
 from dotenv import load_dotenv
 
 # Load environment variables
@@ -18,13 +19,16 @@ headers = {
 def create_database():
     create_url = 'https://api.notion.com/v1/databases'
 
+    unique_id = uuid.uuid4()
+    database_title = f"Tasks Database {unique_id}"
+
     data = {
         "parent": {"type": "page_id", "page_id": NOTION_PAGE_ID},
         "title": [
             {
                 "type": "text",
                 "text": {
-                    "content": "Tasks Database"
+                    "content": database_title
                 }
             }
         ],
@@ -47,7 +51,18 @@ def create_database():
             "Due Date": {
                 "date": {}
             }
-        }
+        },
+        "is_inline": True,
+        "icon": {
+            "type": "emoji",
+            "emoji": "📝"
+        },
+        "cover": {
+            "type": "external",
+            "external": {
+                "url": "https://www.example.com/your-cover-image.jpg"
+            }
+        },
     }
 
     response = requests.post(create_url, headers=headers, json=data)

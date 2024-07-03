@@ -254,5 +254,37 @@
                 }
             }
         }
+    },
+    {
+        "properties": {
+            "Name": {
+                "title": [
+                    {
+                        "text": {
+                            "content": "Create and Test Workout Plan with Notion Automation"
+                        }
+                    }
+                ]
+            },
+            "Description": {
+                "rich_text": [
+                    {
+                        "text": {
+                            "content": "Develop a workout plan using Notion automation, test its effectiveness, and report back the results."
+                        }
+                    }
+                ]
+            },
+            "Status": {
+                "select": {
+                    "name": "Not Started"
+                }
+            },
+            "Due Date": {
+                "date": {
+                    "start": "2024-08-01"
+                }
+            }
+        }
     }
 ]
