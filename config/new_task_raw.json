@@ -1,258 +1,32 @@
-[
-    {
-        "properties": {
-            "Name": {
-                "title": [
-                    {
-                        "text": {
-                            "content": "Research Client Tracking Best Practices"
-                        }
+{
+    "properties": {
+        "Name": {
+            "title": [
+                {
+                    "text": {
+                        "content": ""
                     }
-                ]
-            },
-            "Description": {
-                "rich_text": [
-                    {
-                        "text": {
-                            "content": "Investigate industry standards and best practices for tracking clients and engagement."
-                        }
+                }
+            ]
+        },
+        "Description": {
+            "rich_text": [
+                {
+                    "text": {
+                        "content": ""
                     }
-                ]
-            },
-            "Status": {
-                "select": {
-                    "name": "Not Started"
                 }
-            },
-            "Due Date": {
-                "date": {
-                    "start": "2024-07-10"
-                }
+            ]
+        },
+        "Status": {
+            "select": {
+                "name": ""
             }
-        }
-    },
-    {
-        "properties": {
-            "Name": {
-                "title": [
-                    {
-                        "text": {
-                            "content": "Define Client Engagement Metrics"
-                        }
-                    }
-                ]
-            },
-            "Description": {
-                "rich_text": [
-                    {
-                        "text": {
-                            "content": "Identify key metrics for tracking client engagement, such as interaction frequency, conversion rates, and social media engagement."
-                        }
-                    }
-                ]
-            },
-            "Status": {
-                "select": {
-                    "name": "In Progress"
-                }
-            },
-            "Due Date": {
-                "date": {
-                    "start": "2024-07-12"
-                }
-            }
-        }
-    },
-    {
-        "properties": {
-            "Name": {
-                "title": [
-                    {
-                        "text": {
-                            "content": "Create a Client Marketing Blueprint"
-                        }
-                    }
-                ]
-            },
-            "Description": {
-                "rich_text": [
-                    {
-                        "text": {
-                            "content": "Develop a comprehensive marketing strategy to attract and engage potential clients and followers."
-                        }
-                    }
-                ]
-            },
-            "Status": {
-                "select": {
-                    "name": "Not Started"
-                }
-            },
-            "Due Date": {
-                "date": {
-                    "start": "2024-07-15"
-                }
-            }
-        }
-    },
-    {
-        "properties": {
-            "Name": {
-                "title": [
-                    {
-                        "text": {
-                            "content": "Design Client Tracking System"
-                        }
-                    }
-                ]
-            },
-            "Description": {
-                "rich_text": [
-                    {
-                        "text": {
-                            "content": "Outline the architecture and features needed for a client tracking system that can be used across different coaching niches."
-                        }
-                    }
-                ]
-            },
-            "Status": {
-                "select": {
-                    "name": "Not Started"
-                }
-            },
-            "Due Date": {
-                "date": {
-                    "start": "2024-07-18"
-                }
-            }
-        }
-    },
-    {
-        "properties": {
-            "Name": {
-                "title": [
-                    {
-                        "text": {
-                            "content": "Identify Tools for Automation"
-                        }
-                    }
-                ]
-            },
-            "Description": {
-                "rich_text": [
-                    {
-                        "text": {
-                            "content": "Research and select tools for automating client tracking and engagement, such as CRM systems and social media management tools."
-                        }
-                    }
-                ]
-            },
-            "Status": {
-                "select": {
-                    "name": "Not Started"
-                }
-            },
-            "Due Date": {
-                "date": {
-                    "start": "2024-07-20"
-                }
-            }
-        }
-    },
-    {
-        "properties": {
-            "Name": {
-                "title": [
-                    {
-                        "text": {
-                            "content": "Develop Client Segmentation Strategy"
-                        }
-                    }
-                ]
-            },
-            "Description": {
-                "rich_text": [
-                    {
-                        "text": {
-                            "content": "Create a strategy for segmenting clients and prospects based on engagement levels, interests, and other relevant criteria."
-                        }
-                    }
-                ]
-            },
-            "Status": {
-                "select": {
-                    "name": "In Progress"
-                }
-            },
-            "Due Date": {
-                "date": {
-                    "start": "2024-07-22"
-                }
-            }
-        }
-    },
-    {
-        "properties": {
-            "Name": {
-                "title": [
-                    {
-                        "text": {
-                            "content": "Integrate Engagement Tracking with Notion"
-                        }
-                    }
-                ]
-            },
-            "Description": {
-                "rich_text": [
-                    {
-                        "text": {
-                            "content": "Set up Notion to track client engagement and progress, including integrating with other tools like Google Calendar and Zoom."
-                        }
-                    }
-                ]
-            },
-            "Status": {
-                "select": {
-                    "name": "Not Started"
-                }
-            },
-            "Due Date": {
-                "date": {
-                    "start": "2024-07-25"
-                }
-            }
-        }
-    },
-    {
-        "properties": {
-            "Name": {
-                "title": [
-                    {
-                        "text": {
-                            "content": "Pilot Client Tracking System"
-                        }
-                    }
-                ]
-            },
-            "Description": {
-                "rich_text": [
-                    {
-                        "text": {
-                            "content": "Run a pilot program to test the client tracking system and make adjustments based on feedback."
-                        }
-                    }
-                ]
-            },
-            "Status": {
-                "select": {
-                    "name": "Not Started"
-                }
-            },
-            "Due Date": {
-                "date": {
-                    "start": "2024-07-30"
-                }
+        },
+        "Due Date": {
+            "date": {
+                "start": ""
             }
         }
     }
-]
+}
