@@ -1,0 +1,336 @@
+{
+    "schema": {
+        "title": "Union-Find Study Plan",
+        "properties": {
+            "Name": {
+                "title": {}
+            },
+            "Description": {
+                "rich_text": {}
+            },
+            "Status": {
+                "select": {
+                    "options": [
+                        { "name": "Not started", "color": "default" },
+                        { "name": "In progress", "color": "blue" },
+                        { "name": "Completed", "color": "green" }
+                    ]
+                }
+            },
+            "Due Date": {
+                "date": {}
+            },
+            "Resource": {
+                "select": {
+                    "options": [
+                        { "name": "Video", "color": "red" },
+                        { "name": "Article", "color": "green" },
+                        { "name": "Code Practice", "color": "yellow" },
+                        { "name": "Documentation", "color": "blue" }
+                    ]
+                }
+            },
+            "Link": {
+                "url": {}
+            },
+            "Estimated Time": {
+                "select": {
+                    "options": [
+                        { "name": "Less than 1 hour", "color": "yellow" },
+                        { "name": "1-2 hours", "color": "orange" },
+                        { "name": "2-3 hours", "color": "red" },
+                        { "name": "More than 3 hours", "color": "purple" }
+                    ]
+                }
+            },
+            "Tags": {
+                "multi_select": {
+                    "options": [
+                        { "name": "Basics", "color": "blue" },
+                        { "name": "Advanced", "color": "purple" },
+                        { "name": "Optimization", "color": "orange" },
+                        { "name": "Practice", "color": "pink" },
+                        { "name": "Theory", "color": "gray" }
+                    ]
+                }
+            }
+        }
+    },
+    "tasks": [
+        {
+            "properties": {
+                "Name": {
+                    "title": [
+                        {
+                            "text": {
+                                "content": "Introduction to Union-Find"
+                            }
+                        }
+                    ]
+                },
+                "Description": {
+                    "rich_text": [
+                        {
+                            "text": {
+                                "content": "Understand the basics of the Union-Find data structure, including its operations and applications."
+                            }
+                        }
+                    ]
+                },
+                "Status": {
+                    "select": {
+                        "name": "Not started"
+                    }
+                },
+                "Due Date": {
+                    "date": {
+                        "start": "2024-07-10"
+                    }
+                },
+                "Resource": {
+                    "select": {
+                        "name": "Article"
+                    }
+                },
+                "Link": {
+                    "url": "https://www.geeksforgeeks.org/union-find/"
+                },
+                "Estimated Time": {
+                    "select": {
+                        "name": "1-2 hours"
+                    }
+                },
+                "Tags": {
+                    "multi_select": [
+                        {
+                            "name": "Basics"
+                        },
+                        {
+                            "name": "Theory"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "properties": {
+                "Name": {
+                    "title": [
+                        {
+                            "text": {
+                                "content": "Union Operation"
+                            }
+                        }
+                    ]
+                },
+                "Description": {
+                    "rich_text": [
+                        {
+                            "text": {
+                                "content": "Learn about the union operation in the Union-Find data structure and its implementation."
+                            }
+                        }
+                    ]
+                },
+                "Status": {
+                    "select": {
+                        "name": "Not started"
+                    }
+                },
+                "Due Date": {
+                    "date": {
+                        "start": "2024-07-12"
+                    }
+                },
+                "Resource": {
+                    "select": {
+                        "name": "Video"
+                    }
+                },
+                "Link": {
+                    "url": "https://www.youtube.com/watch?v=3Gb3faOzvBk"
+                },
+                "Estimated Time": {
+                    "select": {
+                        "name": "1-2 hours"
+                    }
+                },
+                "Tags": {
+                    "multi_select": [
+                        {
+                            "name": "Basics"
+                        },
+                        {
+                            "name": "Practice"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "properties": {
+                "Name": {
+                    "title": [
+                        {
+                            "text": {
+                                "content": "Find Operation"
+                            }
+                        }
+                    ]
+                },
+                "Description": {
+                    "rich_text": [
+                        {
+                            "text": {
+                                "content": "Learn about the find operation in the Union-Find data structure and its implementation."
+                            }
+                        }
+                    ]
+                },
+                "Status": {
+                    "select": {
+                        "name": "Not started"
+                    }
+                },
+                "Due Date": {
+                    "date": {
+                        "start": "2024-07-15"
+                    }
+                },
+                "Resource": {
+                    "select": {
+                        "name": "Video"
+                    }
+                },
+                "Link": {
+                    "url": "https://www.youtube.com/watch?v=zQeY8nP4AEI"
+                },
+                "Estimated Time": {
+                    "select": {
+                        "name": "1-2 hours"
+                    }
+                },
+                "Tags": {
+                    "multi_select": [
+                        {
+                            "name": "Basics"
+                        },
+                        {
+                            "name": "Practice"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "properties": {
+                "Name": {
+                    "title": [
+                        {
+                            "text": {
+                                "content": "Applications of Union-Find"
+                            }
+                        }
+                    ]
+                },
+                "Description": {
+                    "rich_text": [
+                        {
+                            "text": {
+                                "content": "Explore various applications of the Union-Find data structure."
+                            }
+                        }
+                    ]
+                },
+                "Status": {
+                    "select": {
+                        "name": "Not started"
+                    }
+                },
+                "Due Date": {
+                    "date": {
+                        "start": "2024-07-18"
+                    }
+                },
+                "Resource": {
+                    "select": {
+                        "name": "Article"
+                    }
+                },
+                "Link": {
+                    "url": "https://www.geeksforgeeks.org/applications-of-disjoint-set-data-structure/"
+                },
+                "Estimated Time": {
+                    "select": {
+                        "name": "2-3 hours"
+                    }
+                },
+                "Tags": {
+                    "multi_select": [
+                        {
+                            "name": "Advanced"
+                        },
+                        {
+                            "name": "Theory"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "properties": {
+                "Name": {
+                    "title": [
+                        {
+                            "text": {
+                                "content": "LeetCode Practice: Number of Connected Components in an Undirected Graph"
+                            }
+                        }
+                    ]
+                },
+                "Description": {
+                    "rich_text": [
+                        {
+                            "text": {
+                                "content": "Practice using Union-Find to solve LeetCode problems."
+                            }
+                        }
+                    ]
+                },
+                "Status": {
+                    "select": {
+                        "name": "Not started"
+                    }
+                },
+                "Due Date": {
+                    "date": {
+                        "start": "2024-07-20"
+                    }
+                },
+                "Resource": {
+                    "select": {
+                        "name": "Code Practice"
+                    }
+                },
+                "Link": {
+                    "url": "https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/"
+                },
+                "Estimated Time": {
+                    "select": {
+                        "name": "1-2 hours"
+                    }
+                },
+                "Tags": {
+                    "multi_select": [
+                        {
+                            "name": "Practice"
+                        },
+                        {
+                            "name": "Advanced"
+                        }
+                    ]
+                }
+            }
+        }
+    ]
+}
