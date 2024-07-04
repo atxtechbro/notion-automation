@@ -1,7 +1,7 @@
 import os
 import json
 import requests
-import uuid
+import argparse
 from dotenv import load_dotenv
 
 # Load environment variables
@@ -16,53 +16,28 @@ headers = {
     "Notion-Version": "2021-08-16"
 }
 
-def create_database():
+def load_database_config(config_name):
+    config_path = f'config/database_configs/{config_name}.json'
+    if not os.path.exists(config_path):
+        raise FileNotFoundError(f"Template file '{config_path}' not found.")
+    with open(config_path, 'r') as file:
+        config = json.load(file)
+    return config
+
+def create_database(config):
     create_url = 'https://api.notion.com/v1/databases'
 
-    unique_id = uuid.uuid4()
-    database_title = f"Tasks Database {unique_id}"
-
     data = {
-        "parent": {"type": "page_id", "page_id": NOTION_PAGE_ID},
+        "parent": { "type": "page_id", "page_id": NOTION_PAGE_ID },
         "title": [
             {
                 "type": "text",
                 "text": {
-                    "content": database_title
+                    "content": config["schema"]["title"]
                 }
             }
         ],
-        "properties": {
-            "Name": {
-                "title": {}
-            },
-            "Description": {
-                "rich_text": {}
-            },
-            "Status": {
-                "select": {
-                    "options": [
-                        {"name": "Not Started", "color": "red"},
-                        {"name": "In Progress", "color": "yellow"},
-                        {"name": "Completed", "color": "green"}
-                    ]
-                }
-            },
-            "Due Date": {
-                "date": {}
-            }
-        },
-        "is_inline": True,
-        "icon": {
-            "type": "emoji",
-            "emoji": "📝"
-        },
-        "cover": {
-            "type": "external",
-            "external": {
-                "url": "https://www.example.com/your-cover-image.jpg"
-            }
-        },
+        "properties": config["schema"]["properties"]
     }
 
     response = requests.post(create_url, headers=headers, json=data)
@@ -75,9 +50,28 @@ def create_database():
         print(f"Failed to create database: {response.text}")
         return None
 
-def create_task(database_id, task):
-    create_url = 'https://api.notion.com/v1/pages'
+def get_property_type(property_config):
+    for property_type in ["title", "rich_text", "select", "date", "people", "url", "number", "multi_select"]:
+        if property_type in property_config:
+            return property_type
+    return None
 
+def validate_task_properties(task, schema_properties):
+    task_properties = task["properties"]
+    for key, value in schema_properties.items():
+        if key not in task_properties:
+            raise ValueError(f"Task property '{key}' is missing.")
+        expected_type = get_property_type(value)
+        actual_type = get_property_type(task_properties[key])
+        if expected_type != actual_type:
+            raise ValueError(f"Task property '{key}' has incorrect type. Expected: {expected_type}, Got: {actual_type}")
+        if expected_type == 'people' and not task_properties[key].get('people'):
+            task_properties[key] = {"people": []}
+
+def create_task(database_id, task, schema_properties):
+    validate_task_properties(task, schema_properties)
+
+    create_url = 'https://api.notion.com/v1/pages'
     data = {
         "parent": {"database_id": database_id},
         "properties": task["properties"]
@@ -91,18 +85,28 @@ def create_task(database_id, task):
     else:
         print(f"Failed to create task: {response.text}")
 
-def main():
+def main(config_name):
     if NOTION_PAGE_ID is None or NOTION_PAGE_ID == '':
         print("Error: NOTION_PAGE_ID is not set or is empty. Please set it in the .env file.")
         return
 
-    database_id = create_database()
-    if database_id:
-        with open('config/tasks.json', 'r') as f:
-            tasks = json.load(f)
-        
-        for task in tasks:
-            create_task(database_id, task)
+    try:
+        config = load_database_config(config_name)
+        database_id = create_database(config)
+        if database_id:
+            tasks = config["tasks"]
+            schema_properties = config["schema"]["properties"]
+            
+            for task in tasks:
+                create_task(database_id, task, schema_properties)
+    except FileNotFoundError as e:
+        print(e)
+    except ValueError as e:
+        print(f"Validation Error: {e}")
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description="Create a Notion database using a specified template.")
+    parser.add_argument('template', type=str, help="The name of the template to use (without .json extension).")
+    
+    args = parser.parse_args()
+    main(args.template)
