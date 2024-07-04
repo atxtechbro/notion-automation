@@ -14,12 +14,18 @@ def add_task_from_raw(file_path='config/tasks.json', raw_task_dir='config'):
     with open(raw_task_path, 'r') as file:
         task = json.load(file)
     
-    # Load existing tasks from tasks.json
+    # Initialize tasks list
     tasks = []
+
+    # Load existing tasks from tasks.json if it exists
     if os.path.exists(file_path):
         with open(file_path, 'r') as file:
-            tasks = json.load(file)
-    
+            try:
+                tasks = json.load(file)
+            except json.JSONDecodeError:
+                # Handle the case where tasks.json is empty or contains invalid JSON
+                tasks = []
+
     # Add the new task to the list of tasks
     tasks.append(task)
     
