@@ -1,0 +1,299 @@
+{
+    "schema": {
+        "title": "Pro Physique Workout Plan",
+        "properties": {
+            "Name": {
+                "title": {}
+            },
+            "Description": {
+                "rich_text": {}
+            },
+            "Status": {
+                "select": {
+                    "options": [
+                        { "name": "To Do", "color": "default" },
+                        { "name": "In Progress", "color": "blue" },
+                        { "name": "Done", "color": "green" }
+                    ]
+                }
+            },
+            "Day": {
+                "select": {
+                    "options": [
+                        { "name": "Monday", "color": "red" },
+                        { "name": "Tuesday", "color": "green" },
+                        { "name": "Wednesday", "color": "yellow" },
+                        { "name": "Thursday", "color": "blue" },
+                        { "name": "Friday", "color": "purple" },
+                        { "name": "Saturday", "color": "orange" },
+                        { "name": "Sunday", "color": "gray" }
+                    ]
+                }
+            },
+            "Warm-Up": {
+                "rich_text": {}
+            },
+            "Exercises": {
+                "rich_text": {}
+            },
+            "Cool-Down": {
+                "rich_text": {}
+            },
+            "Duration": {
+                "number": {
+                    "format": "number"
+                }
+            }
+        }
+    },
+    "tasks": [
+        {
+            "properties": {
+                "Name": {
+                    "title": [
+                        {
+                            "text": {
+                                "content": "Chest Workout"
+                            }
+                        }
+                    ]
+                },
+                "Description": {
+                    "rich_text": [
+                        {
+                            "text": {
+                                "content": "A comprehensive chest workout routine."
+                            }
+                        }
+                    ]
+                },
+                "Status": {
+                    "select": {
+                        "name": "To Do"
+                    }
+                },
+                "Day": {
+                    "select": {
+                        "name": "Monday"
+                    }
+                },
+                "Warm-Up": {
+                    "rich_text": [
+                        {
+                            "text": {
+                                "content": "### Warm-Up\n- 5 minutes of light cardio (jogging in place, jumping jacks)\n- 2 sets of 10 push-ups"
+                            }
+                        }
+                    ]
+                },
+                "Exercises": {
+                    "rich_text": [
+                        {
+                            "text": {
+                                "content": "### Exercises\n- **Flat Dumbbell Press**: 4 sets of 10 reps\n- **Incline Dumbbell Press**: 4 sets of 12 reps\n- **Smith Machine Bench Press**: 3 sets of 8 reps\n- **Cable Flyes**: 3 sets of 15 reps\n- **Push-Ups**: 3 sets to failure"
+                            }
+                        }
+                    ]
+                },
+                "Cool-Down": {
+                    "rich_text": [
+                        {
+                            "text": {
+                                "content": "### Cool-Down\n- 5 minutes of light stretching focusing on the chest and shoulders"
+                            }
+                        }
+                    ]
+                },
+                "Duration": {
+                    "number": 60
+                }
+            }
+        },
+        {
+            "properties": {
+                "Name": {
+                    "title": [
+                        {
+                            "text": {
+                                "content": "Back Workout"
+                            }
+                        }
+                    ]
+                },
+                "Description": {
+                    "rich_text": [
+                        {
+                            "text": {
+                                "content": "A comprehensive back workout routine."
+                            }
+                        }
+                    ]
+                },
+                "Status": {
+                    "select": {
+                        "name": "To Do"
+                    }
+                },
+                "Day": {
+                    "select": {
+                        "name": "Wednesday"
+                    }
+                },
+                "Warm-Up": {
+                    "rich_text": [
+                        {
+                            "text": {
+                                "content": "### Warm-Up\n- 5 minutes of light cardio (rowing machine or jumping jacks)\n- 2 sets of 10 pull-ups"
+                            }
+                        }
+                    ]
+                },
+                "Exercises": {
+                    "rich_text": [
+                        {
+                            "text": {
+                                "content": "### Exercises\n- **Pull-Ups**: 4 sets of 8 reps\n- **Dumbbell Rows**: 4 sets of 12 reps\n- **Smith Machine Bent Over Rows**: 3 sets of 10 reps\n- **Cable Lat Pulldowns**: 3 sets of 15 reps\n- **Face Pulls**: 3 sets of 12 reps"
+                            }
+                        }
+                    ]
+                },
+                "Cool-Down": {
+                    "rich_text": [
+                        {
+                            "text": {
+                                "content": "### Cool-Down\n- 5 minutes of light stretching focusing on the back and shoulders"
+                            }
+                        }
+                    ]
+                },
+                "Duration": {
+                    "number": 60
+                }
+            }
+        },
+        {
+            "properties": {
+                "Name": {
+                    "title": [
+                        {
+                            "text": {
+                                "content": "Leg Workout"
+                            }
+                        }
+                    ]
+                },
+                "Description": {
+                    "rich_text": [
+                        {
+                            "text": {
+                                "content": "A comprehensive leg workout routine."
+                            }
+                        }
+                    ]
+                },
+                "Status": {
+                    "select": {
+                        "name": "To Do"
+                    }
+                },
+                "Day": {
+                    "select": {
+                        "name": "Friday"
+                    }
+                },
+                "Warm-Up": {
+                    "rich_text": [
+                        {
+                            "text": {
+                                "content": "### Warm-Up\n- 5 minutes of light cardio (jogging or cycling)\n- 2 sets of 10 bodyweight squats"
+                            }
+                        }
+                    ]
+                },
+                "Exercises": {
+                    "rich_text": [
+                        {
+                            "text": {
+                                "content": "### Exercises\n- **Smith Machine Squats**: 4 sets of 10 reps\n- **Dumbbell Lunges**: 4 sets of 12 reps per leg\n- **Leg Press (if available)**: 3 sets of 12 reps\n- **Leg Curls**: 3 sets of 15 reps\n- **Calf Raises**: 4 sets of 20 reps"
+                            }
+                        }
+                    ]
+                },
+                "Cool-Down": {
+                    "rich_text": [
+                        {
+                            "text": {
+                                "content": "### Cool-Down\n- 5 minutes of light stretching focusing on the legs"
+                            }
+                        }
+                    ]
+                },
+                "Duration": {
+                    "number": 60
+                }
+            }
+        },
+        {
+            "properties": {
+                "Name": {
+                    "title": [
+                        {
+                            "text": {
+                                "content": "Arms Workout"
+                            }
+                        }
+                    ]
+                },
+                "Description": {
+                    "rich_text": [
+                        {
+                            "text": {
+                                "content": "A comprehensive arms workout routine."
+                            }
+                        }
+                    ]
+                },
+                "Status": {
+                    "select": {
+                        "name": "To Do"
+                    }
+                },
+                "Day": {
+                    "select": {
+                        "name": "Saturday"
+                    }
+                },
+                "Warm-Up": {
+                    "rich_text": [
+                        {
+                            "text": {
+                                "content": "### Warm-Up\n- 5 minutes of light cardio (jumping jacks or light jogging)\n- 2 sets of 10 bicep curls with light weights"
+                            }
+                        }
+                    ]
+                },
+                "Exercises": {
+                    "rich_text": [
+                        {
+                            "text": {
+                                "content": "### Exercises\n- **Dumbbell Bicep Curls**: 4 sets of 12 reps\n- **Tricep Dips (bench)**: 4 sets of 12 reps\n- **Smith Machine Overhead Press**: 3 sets of 10 reps\n- **Cable Tricep Extensions**: 3 sets of 15 reps\n- **Hammer Curls**: 3 sets of 12 reps"
+                            }
+                        }
+                    ]
+                },
+                "Cool-Down": {
+                    "rich_text": [
+                        {
+                            "text": {
+                                "content": "### Cool-Down\n- 5 minutes of light stretching focusing on the arms"
+                            }
+                        }
+                    ]
+                },
+                "Duration": {
+                    "number": 60
+                }
+            }
+        }
+    ]
+}
