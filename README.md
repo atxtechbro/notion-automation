@@ -1,5 +1,3 @@
-Here's the updated README for your repository:
-
 # Notion Automation
 
 This repository contains scripts and configurations to automate task creation in Notion. It is designed to be extensible for future automations.
