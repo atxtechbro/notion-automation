@@ -1,0 +1,104 @@
+{
+    "schema": {
+        "title": "Fashion Recommender App Development",
+        "properties": {
+            "Name": {
+                "title": {}
+            },
+            "Description": {
+                "rich_text": {}
+            },
+            "Status": {
+                "select": {
+                    "options": [
+                        { "name": "To Do", "color": "default" },
+                        { "name": "In Progress", "color": "blue" },
+                        { "name": "Done", "color": "green" }
+                    ]
+                }
+            },
+            "Due Date": {
+                "date": {}
+            },
+            "Task Type": {
+                "select": {
+                    "options": [
+                        { "name": "Cataloging", "color": "red" },
+                        { "name": "Database Design", "color": "green" },
+                        { "name": "Backend Development", "color": "yellow" },
+                        { "name": "Frontend Development", "color": "blue" },
+                        { "name": "Testing", "color": "purple" }
+                    ]
+                }
+            },
+            "Priority": {
+                "select": {
+                    "options": [
+                        { "name": "High", "color": "red" },
+                        { "name": "Medium", "color": "orange" },
+                        { "name": "Low", "color": "green" }
+                    ]
+                }
+            },
+            "Estimated Time": {
+                "select": {
+                    "options": [
+                        { "name": "Less than 1 hour", "color": "yellow" },
+                        { "name": "1-2 hours", "color": "orange" },
+                        { "name": "2-3 hours", "color": "red" },
+                        { "name": "More than 3 hours", "color": "purple" }
+                    ]
+                }
+            }
+        }
+    },
+    "tasks": [
+        {
+            "properties": {
+                "Name": {
+                    "title": [
+                        {
+                            "text": {
+                                "content": "Validate Email Address in Capture Form"
+                            }
+                        }
+                    ]
+                },
+                "Description": {
+                    "rich_text": [
+                        {
+                            "text": {
+                                "content": "Implement email validation logic in the email-capture form to ensure proper email format and prevent invalid submissions."
+                            }
+                        }
+                    ]
+                },
+                "Status": {
+                    "select": {
+                        "name": "To Do"
+                    }
+                },
+                "Due Date": {
+                    "date": {
+                        "start": "2024-08-15"
+                    }
+                },
+                "Task Type": {
+                    "select": {
+                        "name": "Frontend Development"
+                    }
+                },
+                "Priority": {
+                    "select": {
+                        "name": "High"
+                    }
+                },
+                "Estimated Time": {
+                    "select": {
+                        "name": "More than 3 hours"
+                    }
+                }
+            }
+        }
+    ]
+}

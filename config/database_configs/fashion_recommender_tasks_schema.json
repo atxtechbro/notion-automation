@@ -1,0 +1,292 @@
+{
+    "schema": {
+        "title": "Fashion Recommender App Development",
+        "properties": {
+            "Name": {
+                "title": {}
+            },
+            "Description": {
+                "rich_text": {}
+            },
+            "Status": {
+                "select": {
+                    "options": [
+                        { "name": "To Do", "color": "default" },
+                        { "name": "In Progress", "color": "blue" },
+                        { "name": "Done", "color": "green" }
+                    ]
+                }
+            },
+            "Due Date": {
+                "date": {}
+            },
+            "Task Type": {
+                "select": {
+                    "options": [
+                        { "name": "Cataloging", "color": "red" },
+                        { "name": "Database Design", "color": "green" },
+                        { "name": "Backend Development", "color": "yellow" },
+                        { "name": "Frontend Development", "color": "blue" },
+                        { "name": "Testing", "color": "purple" }
+                    ]
+                }
+            },
+            "Priority": {
+                "select": {
+                    "options": [
+                        { "name": "High", "color": "red" },
+                        { "name": "Medium", "color": "orange" },
+                        { "name": "Low", "color": "green" }
+                    ]
+                }
+            },
+            "Estimated Time": {
+                "select": {
+                    "options": [
+                        { "name": "Less than 1 hour", "color": "yellow" },
+                        { "name": "1-2 hours", "color": "orange" },
+                        { "name": "2-3 hours", "color": "red" },
+                        { "name": "More than 3 hours", "color": "purple" }
+                    ]
+                }
+            }
+        }
+    },
+    "tasks": [
+        {
+            "properties": {
+                "Name": {
+                    "title": [
+                        {
+                            "text": {
+                                "content": "Photograph and Catalog Clothing Items"
+                            }
+                        }
+                    ]
+                },
+                "Description": {
+                    "rich_text": [
+                        {
+                            "text": {
+                                "content": "Take high-quality photographs of each clothing item and catalog them with attributes like color, pattern, and image URL."
+                            }
+                        }
+                    ]
+                },
+                "Status": {
+                    "select": {
+                        "name": "To Do"
+                    }
+                },
+                "Due Date": {
+                    "date": {
+                        "start": "2024-08-14"
+                    }
+                },
+                "Task Type": {
+                    "select": {
+                        "name": "Cataloging"
+                    }
+                },
+                "Priority": {
+                    "select": {
+                        "name": "High"
+                    }
+                },
+                "Estimated Time": {
+                    "select": {
+                        "name": "More than 3 hours"
+                    }
+                }
+            }
+        },
+        {
+            "properties": {
+                "Name": {
+                    "title": [
+                        {
+                            "text": {
+                                "content": "Design the Database Schema"
+                            }
+                        }
+                    ]
+                },
+                "Description": {
+                    "rich_text": [
+                        {
+                            "text": {
+                                "content": "Design a scalable database schema that includes user profiles, clothing items, and recommendation logic."
+                            }
+                        }
+                    ]
+                },
+                "Status": {
+                    "select": {
+                        "name": "To Do"
+                    }
+                },
+                "Due Date": {
+                    "date": {
+                        "start": "2024-08-17"
+                    }
+                },
+                "Task Type": {
+                    "select": {
+                        "name": "Database Design"
+                    }
+                },
+                "Priority": {
+                    "select": {
+                        "name": "High"
+                    }
+                },
+                "Estimated Time": {
+                    "select": {
+                        "name": "2-3 hours"
+                    }
+                }
+            }
+        },
+        {
+            "properties": {
+                "Name": {
+                    "title": [
+                        {
+                            "text": {
+                                "content": "Set Up the Backend API"
+                            }
+                        }
+                    ]
+                },
+                "Description": {
+                    "rich_text": [
+                        {
+                            "text": {
+                                "content": "Develop the backend API to handle operations like adding, retrieving, and updating clothing items, and implementing recommendation logic."
+                            }
+                        }
+                    ]
+                },
+                "Status": {
+                    "select": {
+                        "name": "To Do"
+                    }
+                },
+                "Due Date": {
+                    "date": {
+                        "start": "2024-08-21"
+                    }
+                },
+                "Task Type": {
+                    "select": {
+                        "name": "Backend Development"
+                    }
+                },
+                "Priority": {
+                    "select": {
+                        "name": "High"
+                    }
+                },
+                "Estimated Time": {
+                    "select": {
+                        "name": "More than 3 hours"
+                    }
+                }
+            }
+        },
+        {
+            "properties": {
+                "Name": {
+                    "title": [
+                        {
+                            "text": {
+                                "content": "Develop the User Interface"
+                            }
+                        }
+                    ]
+                },
+                "Description": {
+                    "rich_text": [
+                        {
+                            "text": {
+                                "content": "Create the frontend of the app, focusing on ease of use and clear presentation of recommendations."
+                            }
+                        }
+                    ]
+                },
+                "Status": {
+                    "select": {
+                        "name": "To Do"
+                    }
+                },
+                "Due Date": {
+                    "date": {
+                        "start": "2024-08-28"
+                    }
+                },
+                "Task Type": {
+                    "select": {
+                        "name": "Frontend Development"
+                    }
+                },
+                "Priority": {
+                    "select": {
+                        "name": "Medium"
+                    }
+                },
+                "Estimated Time": {
+                    "select": {
+                        "name": "2-3 hours"
+                    }
+                }
+            }
+        },
+        {
+            "properties": {
+                "Name": {
+                    "title": [
+                        {
+                            "text": {
+                                "content": "Testing and Iteration"
+                            }
+                        }
+                    ]
+                },
+                "Description": {
+                    "rich_text": [
+                        {
+                            "text": {
+                                "content": "Test the app with your data, gather feedback, and iterate on the design and functionality."
+                            }
+                        }
+                    ]
+                },
+                "Status": {
+                    "select": {
+                        "name": "To Do"
+                    }
+                },
+                "Due Date": {
+                    "date": {
+                        "start": "2024-09-05"
+                    }
+                },
+                "Task Type": {
+                    "select": {
+                        "name": "Testing"
+                    }
+                },
+                "Priority": {
+                    "select": {
+                        "name": "Medium"
+                    }
+                },
+                "Estimated Time": {
+                    "select": {
+                        "name": "More than 3 hours"
+                    }
+                }
+            }
+        }
+    ]
+}
