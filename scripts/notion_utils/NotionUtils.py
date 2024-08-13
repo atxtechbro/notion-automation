@@ -1,4 +1,3 @@
-# notion_utils.py
 import os
 import json
 import requests
@@ -16,14 +15,22 @@ HEADERS = {
     "Notion-Version": "2021-08-16"
 }
 
-def load_database_config(config_name):
-    """Load the database configuration from a JSON file."""
-    config_path = f'config/database_configs/{config_name}.json'
-    if not os.path.exists(config_path):
-        raise FileNotFoundError(f"Template file '{config_path}' not found.")
-    with open(config_path, 'r') as file:
-        config = json.load(file)
-    return config
+def load_json_file(file_path):
+    """Load a JSON file and return its content."""
+    if not os.path.exists(file_path):
+        raise FileNotFoundError(f"File '{file_path}' not found.")
+    with open(file_path, 'r') as file:
+        return json.load(file)
+
+def load_schema(schema_name="schema"):
+    """Load the schema configuration from a JSON file."""
+    schema_path = f'config/database_configs/{schema_name}.json'
+    return load_json_file(schema_path)
+
+def load_tasks(tasks_name="tasks"):
+    """Load the tasks configuration from a JSON file."""
+    tasks_path = f'config/database_configs/{tasks_name}.json'
+    return load_json_file(tasks_path)
 
 def get_property_type(property_config):
     """Determine the type of a property based on its configuration."""
@@ -50,8 +57,8 @@ def create_database(config):
     create_url = 'https://api.notion.com/v1/databases'
     data = {
         "parent": {"type": "page_id", "page_id": NOTION_PAGE_ID},
-        "title": [{"type": "text", "text": {"content": config["schema"]["title"]}}],
-        "properties": config["schema"]["properties"]
+        "title": [{"type": "text", "text": {"content": config["title"]}}],
+        "properties": config["properties"]
     }
     response = requests.post(create_url, headers=HEADERS, json=data)
     if response.status_code == 200:
@@ -69,11 +76,11 @@ def update_database(database_id, config):
     data = {}
 
     # Only include title if it's provided in the config
-    if "schema" in config and "title" in config["schema"]:
-        data["title"] = [{"type": "text", "text": {"content": config["schema"]["title"]}}]
+    if "title" in config:
+        data["title"] = [{"type": "text", "text": {"content": config["title"]}}]
 
     # Check if properties exist in the database schema before updating
-    if "schema" in config and "properties" in config["schema"]:
+    if "properties" in config:
         # Get the existing properties from the database
         existing_schema_response = requests.get(update_url, headers=HEADERS)
         if existing_schema_response.status_code != 200:
@@ -82,14 +89,14 @@ def update_database(database_id, config):
         existing_properties = existing_schema_response.json().get("properties", {})
 
         # Filter properties to only include those that exist in the current schema
-        data["properties"] = {k: v for k, v in config["schema"]["properties"].items() if k in existing_properties}
+        data["properties"] = {k: v for k, v in config["properties"].items() if k in existing_properties}
         
         # Log missing properties
-        missing_properties = [k for k in config["schema"]["properties"] if k not in existing_properties]
+        missing_properties = [k for k in config["properties"] if k not in existing_properties]
         if missing_properties:
             print(f"Warning: The following properties are missing in the current database schema and won't be updated: {', '.join(missing_properties)}")
     else:
-        raise ValueError("The configuration must include 'properties' under 'schema' to update the database.")
+        raise ValueError("The configuration must include 'properties' to update the database.")
 
     if not data.get("properties"):
         raise ValueError("No valid properties found to update in the database schema.")
