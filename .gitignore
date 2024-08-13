@@ -1,3 +1,13 @@
+# Environment Variables
 .env
-venv
-new_task_raw.json
+
+# Python virtual environment
+venv/
+
+# Byte-compiled Python files
+**/__pycache__/
+**/*.pyc
+
+# VSCode settings
+.vscode/
+
