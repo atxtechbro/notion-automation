@@ -1,25 +1,27 @@
 import argparse
-from notion_utils.NotionUtils import load_schema, load_tasks, create_database, create_task
+import os
+from notion_client.api import NotionClient
+from notion_client.config import ConfigManager
 
 def main(schema_name, tasks_name):
-    try:
-        schema = load_schema(schema_name)  # Load schema configuration
-        tasks = load_tasks(tasks_name)  # Load tasks configuration
+    config_manager = ConfigManager(config_path=args.config_path)
 
-        database_id = create_database(schema)
-        if database_id:
-            schema_properties = schema["properties"]
-            for task in tasks["tasks"]:
-                create_task(database_id, task, schema_properties)
-    except FileNotFoundError as e:
-        print(e)
-    except ValueError as e:
-        print(f"Validation Error: {e}")
+    schema = config_manager.load_schema(schema_name)
+    tasks = config_manager.load_tasks(tasks_name)
+
+    notion_api_key = os.getenv('NOTION_API_KEY')
+    notion_page_id = os.getenv('NOTION_PAGE_ID')
+
+    notion_client = NotionClient(api_key=notion_api_key)
+    database_id = notion_client.create_database(parent_id=notion_page_id, schema=schema)
+
+    for task in tasks:
+        notion_client.create_task(database_id=database_id, task=task)
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Create a Notion database using a specified schema and tasks template.")
-    parser.add_argument('schema', type=str, help="The name of the schema template to use (without .json extension).")
-    parser.add_argument('tasks', type=str, help="The name of the tasks template to use (without .json extension).")
-    
+    parser = argparse.ArgumentParser(description="Create a Notion database.")
+    parser.add_argument('schema', type=str, help="Schema name without extension.")
+    parser.add_argument('tasks', type=str, help="Tasks name without extension.")
+    parser.add_argument('--config-path', type=str, default='plugins', help="Path to the configuration directory.")
     args = parser.parse_args()
     main(args.schema, args.tasks)

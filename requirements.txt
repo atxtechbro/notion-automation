@@ -1,2 +1,5 @@
 requests
 python-dotenv
+pydantic
+click
+pytest
