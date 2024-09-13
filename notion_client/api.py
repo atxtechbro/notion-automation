@@ -1,7 +1,9 @@
+# File: notion_client/api.py
 import requests
-from .models import SchemaConfig, TaskConfig
 
 from .logger import logger
+from .models import SchemaConfig, TaskConfig
+
 
 class NotionClient:
     def __init__(self, api_key: str):
@@ -9,13 +11,13 @@ class NotionClient:
         self.headers = {
             "Authorization": f"Bearer {self.api_key}",
             "Content-Type": "application/json",
-            "Notion-Version": "2021-08-16"
+            "Notion-Version": "2022-06-28"
         }
 
     def create_database(self, parent_id: str, schema: SchemaConfig) -> str:
         url = 'https://api.notion.com/v1/databases'
         data = {
-            "parent": {"page_id": parent_id},
+            "parent": {"type": "page_id", "page_id": parent_id},
             "title": [{"type": "text", "text": {"content": schema.title}}],
             "properties": schema.to_notion_properties()
         }
@@ -29,20 +31,6 @@ class NotionClient:
             logger.error(f"Failed to create database: {e.response.text}")
             raise
 
-    def update_database(self, database_id: str, schema: SchemaConfig):
-        url = f'https://api.notion.com/v1/databases/{database_id}'
-        data = {
-            "title": [{"type": "text", "text": {"content": schema.title}}],
-            "properties": schema.to_notion_properties()
-        }
-        try:
-            response = requests.patch(url, headers=self.headers, json=data)
-            response.raise_for_status()
-            logger.info(f"Database '{schema.title}' updated successfully.")
-        except requests.exceptions.HTTPError as e:
-            logger.error(f"Failed to update database: {e.response.text}")
-            raise
-
     def create_task(self, database_id: str, task: TaskConfig):
         url = 'https://api.notion.com/v1/pages'
         data = {
@@ -52,8 +40,7 @@ class NotionClient:
         try:
             response = requests.post(url, headers=self.headers, json=data)
             response.raise_for_status()
-            task_name = task.properties["Name"].value[0].text.content
-            logger.info(f"Task '{task_name}' created in database '{database_id}'.")
+            logger.info(f"Task created in database '{database_id}'.")
         except requests.exceptions.HTTPError as e:
             logger.error(f"Failed to create task: {e.response.text}")
             raise

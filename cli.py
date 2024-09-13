@@ -1,14 +1,17 @@
-import os
-import json
+# File: cli.py
 import argparse
-from notion_client.api import NotionClient
-from notion_client.models import SchemaConfig, TaskConfig
+import json
+import os
+
 from dotenv import load_dotenv
+
+from notion_client.api import NotionClient
+from notion_client.models import PropertyConfig, PropertyOption, SchemaConfig, TaskConfig, TaskProperty
 
 # Load environment variables from .env
 load_dotenv()
 
-def create_database(schema, tasks):
+def create_database(schema_path, tasks_path):
     """Creates a Notion database and adds tasks."""
     notion_api_key = os.getenv('NOTION_API_KEY')
     notion_page_id = os.getenv('NOTION_PAGE_ID')
@@ -18,13 +21,30 @@ def create_database(schema, tasks):
         return
 
     try:
-        with open(schema, 'r') as schema_file:
+        with open(schema_path, 'r') as schema_file:
             schema_data = json.load(schema_file)
-        schema_config = SchemaConfig(**schema_data)
 
-        with open(tasks, 'r') as tasks_file:
+        # Convert schema_data into SchemaConfig
+        properties = {}
+        for name, prop in schema_data['properties'].items():
+            property_type = next(iter(prop))
+            prop_details = prop[property_type]
+            options_data = prop_details.get('options', [])
+            options = [PropertyOption(**option) for option in options_data]
+            properties[name] = PropertyConfig(property_type=property_type, options=options)
+
+        schema_config = SchemaConfig(title=schema_data['title'], properties=properties)
+
+        with open(tasks_path, 'r') as tasks_file:
             tasks_data = json.load(tasks_file)
-        tasks_config = [TaskConfig(**task) for task in tasks_data.get('tasks', [])]
+
+        tasks_config = []
+        for task in tasks_data.get('tasks', []):
+            task_properties = {}
+            for name, prop in task['properties'].items():
+                task_properties[name] = TaskProperty(**prop)
+            tasks_config.append(TaskConfig(properties=task_properties))
+
     except FileNotFoundError as e:
         print(f"Error: {e}")
         return
