@@ -1,6 +1,7 @@
+```md
 # Notion Automation
 
-This repository provides scripts and configurations to automate task creation in Notion, designed for extensibility.
+This repository provides scripts and configurations to automate task creation in Notion. It is designed for extensibility and easily configurable to fit various use cases.
 
 ## Quick Start
 
@@ -19,27 +20,51 @@ This repository provides scripts and configurations to automate task creation in
    ```
 
 3. **Create a database:**
-   Run the script using a JSON schema from `config/database_configs/`:
+   Use the `create_database` command to create a Notion database by specifying the JSON schema and tasks. Example:
    ```bash
-   python -m scripts.create_database your_config_name
+   python cli.py create_database --schema path/to/schema.json --tasks path/to/tasks.json
    ```
 
-## Configuration
+## Example JSON Schema and Tasks
 
-- **Database schemas** and **tasks** are defined in JSON files within `config/database_configs/`. Customize schemas to fit your use case.
-  
-### Example JSON Schema:
+You can define the database schema and tasks in any directory and pass their paths as arguments when creating the database. Here's an example of what the JSON files could look like:
+
+### Example Schema JSON (`schema.json`):
 ```json
 {
-  "title": "Project Tasks",
+  "title": "Daily Tasks",
   "properties": {
     "Name": { "property_type": "title" },
-    "Status": { "property_type": "select", "options": [{"name": "To Do"}] }
-  },
+    "Status": { "property_type": "select", "options": [{"name": "To Do"}, {"name": "In Progress"}, {"name": "Done"}] }
+  }
+}
+```
+
+### Example Tasks JSON (`tasks.json`):
+```json
+{
   "tasks": [
     {
       "properties": {
-        "Name": { "type": "title", "value": "Task 1" },
+        "Name": { "type": "title", "value": "Finish regression testing at work" },
+        "Status": { "type": "select", "value": "To Do" }
+      }
+    },
+    {
+      "properties": {
+        "Name": { "type": "title", "value": "Reach out to at least three orgs about siphon utility" },
+        "Status": { "type": "select", "value": "To Do" }
+      }
+    },
+    {
+      "properties": {
+        "Name": { "type": "title", "value": "Workout" },
+        "Status": { "type": "select", "value": "To Do" }
+      }
+    },
+    {
+      "properties": {
+        "Name": { "type": "title", "value": "Say a prayer and have quiet time" },
         "Status": { "type": "select", "value": "To Do" }
       }
     }
@@ -47,14 +72,36 @@ This repository provides scripts and configurations to automate task creation in
 }
 ```
 
+4. **Run the script:**
+   ```bash
+   python cli.py create_database --schema schema.json --tasks tasks.json
+   ```
+
 ## Run Tests
+
 Run all tests using `pytest`:
 ```bash
 pytest
 ```
 
 ## Logging
+
 Logs are saved to `notion_automation.log` for debugging.
 
 ## Contribute
+
 Submit pull requests or issues to help enhance this automation toolkit.
+```
+
+### New CLI Usage
+
+Instead of pointing users to the `config/database_configs/` directory that no longer exists, the usage should guide them to use custom paths for their schema and tasks JSON files when running the `create_database` script.
+
+For example:
+- Command to create a database:  
+   ```bash
+   python cli.py create_database --schema path/to/schema.json --tasks path/to/tasks.json
+   ```
+- Make sure the `.env` file is configured with the correct API keys for Notion.
+
+This updated approach reflects the removal of the old directory structure and replaces it with a CLI-based method where users provide their own schema and tasks files from any location.
