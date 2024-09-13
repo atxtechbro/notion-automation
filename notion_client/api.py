@@ -4,7 +4,13 @@ from .models import SchemaConfig, TaskConfig
 from .logger import logger
 
 class NotionClient:
-    # Existing code...
+    def __init__(self, api_key: str):
+        self.api_key = api_key
+        self.headers = {
+            "Authorization": f"Bearer {self.api_key}",
+            "Content-Type": "application/json",
+            "Notion-Version": "2021-08-16"
+        }
 
     def create_database(self, parent_id: str, schema: SchemaConfig) -> str:
         url = 'https://api.notion.com/v1/databases'

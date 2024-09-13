@@ -3,3 +3,4 @@ python-dotenv
 pydantic
 click
 pytest
+requests-mock
