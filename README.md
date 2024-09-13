@@ -1,107 +1,103 @@
-```md
 # Notion Automation
 
-This repository provides scripts and configurations to automate task creation in Notion. It is designed for extensibility and easily configurable to fit various use cases.
+This repository automates the creation of databases and tasks in Notion using predefined JSON schema and tasks. It is optimized for extensibility and ease of use with minimal configuration.
 
-## Quick Start
+## Core Magic ✨
 
-1. **Clone the repo & install dependencies:**
-   ```bash
-   git clone https://github.com/atxtechbro/notion-automation.git
-   cd notion-automation
-   pip install -r requirements.txt
-   ```
+- **Automates Notion task creation**: Define your tasks and schema in JSON, and let the automation do the heavy lifting.
+- **Extensible & Customizable**: Plug-and-play JSON files for schema and task definitions.
+- **Seamless API Integration**: Built-in Notion API integration for easy database creation.
 
-2. **Configure environment:**
-   Add your Notion API key and page ID to a `.env` file:
-   ```bash
-   NOTION_API_KEY=your_notion_api_key
-   NOTION_PAGE_ID=your_notion_page_id
-   ```
+## Quick Setup
 
-3. **Create a database:**
-   Use the `create_database` command to create a Notion database by specifying the JSON schema and tasks. Example:
-   ```bash
-   python cli.py create_database --schema path/to/schema.json --tasks path/to/tasks.json
-   ```
+### 1. Clone & Install Dependencies
 
-## Example JSON Schema and Tasks
+```bash
+git clone https://github.com/your-repo/notion-automation.git
+cd notion-automation
+pip install -r requirements.txt
+```
 
-You can define the database schema and tasks in any directory and pass their paths as arguments when creating the database. Here's an example of what the JSON files could look like:
+### 2. Configure Notion API
 
-### Example Schema JSON (`schema.json`):
+Create a `.env` file with your Notion API key and page ID:
+
+```bash
+NOTION_API_KEY=your_notion_api_key
+NOTION_PAGE_ID=your_notion_page_id
+```
+
+### 3. Define Your Schema and Tasks
+
+Store your schema and tasks in the `plugins/` folder. The schema defines the database structure, and the tasks define the content.
+
+#### Example Schema (`schema.json`):
+
 ```json
 {
-  "title": "Daily Tasks",
+  "title": "Project Tasks",
   "properties": {
-    "Name": { "property_type": "title" },
-    "Status": { "property_type": "select", "options": [{"name": "To Do"}, {"name": "In Progress"}, {"name": "Done"}] }
+    "Name": { "title": {} },
+    "Status": {
+      "select": {
+        "options": [
+          { "name": "Not Started" },
+          { "name": "In Progress" },
+          { "name": "Completed" }
+        ]
+      }
+    },
+    "Priority": {
+      "select": {
+        "options": [{ "name": "Low" }, { "name": "Medium" }, { "name": "High" }]
+      }
+    },
+    "Due Date": { "date": {} }
   }
 }
 ```
 
-### Example Tasks JSON (`tasks.json`):
+#### Example Tasks (`tasks.json`):
+
 ```json
 {
   "tasks": [
     {
       "properties": {
-        "Name": { "type": "title", "value": "Finish regression testing at work" },
-        "Status": { "type": "select", "value": "To Do" }
+        "Name": { "type": "title", "value": "Complete project documentation" },
+        "Status": { "type": "select", "value": "Not Started" },
+        "Priority": { "type": "select", "value": "High" },
+        "Due Date": { "type": "date", "value": "2024-09-15" }
       }
     },
     {
       "properties": {
-        "Name": { "type": "title", "value": "Reach out to at least three orgs about siphon utility" },
-        "Status": { "type": "select", "value": "To Do" }
-      }
-    },
-    {
-      "properties": {
-        "Name": { "type": "title", "value": "Workout" },
-        "Status": { "type": "select", "value": "To Do" }
-      }
-    },
-    {
-      "properties": {
-        "Name": { "type": "title", "value": "Say a prayer and have quiet time" },
-        "Status": { "type": "select", "value": "To Do" }
+        "Name": { "type": "title", "value": "Review pull requests" },
+        "Status": { "type": "select", "value": "In Progress" },
+        "Priority": { "type": "select", "value": "Medium" },
+        "Due Date": { "type": "date", "value": "2024-09-16" }
       }
     }
   ]
 }
 ```
 
-4. **Run the script:**
-   ```bash
-   python cli.py create_database --schema schema.json --tasks tasks.json
-   ```
+### 4. Run the Magic 🪄
 
-## Run Tests
+To create a database with tasks, run:
 
-Run all tests using `pytest`:
 ```bash
-pytest
+python cli.py --schema plugins/schema.json --tasks plugins/tasks.json
 ```
 
-## Logging
+This will automatically create a Notion database and add your tasks.
 
-Logs are saved to `notion_automation.log` for debugging.
+## Core Files
 
-## Contribute
+- **`cli.py`**: The main entry point for creating databases and tasks.
+- **`notion_client/`**: Contains API integration logic and models.
+- **`plugins/`**: Store your schema and task JSON files here. This folder is `.gitignore`d for privacy and customization.
 
-Submit pull requests or issues to help enhance this automation toolkit.
-```
+## Logs & Debugging
 
-### New CLI Usage
-
-Instead of pointing users to the `config/database_configs/` directory that no longer exists, the usage should guide them to use custom paths for their schema and tasks JSON files when running the `create_database` script.
-
-For example:
-- Command to create a database:  
-   ```bash
-   python cli.py create_database --schema path/to/schema.json --tasks path/to/tasks.json
-   ```
-- Make sure the `.env` file is configured with the correct API keys for Notion.
-
-This updated approach reflects the removal of the old directory structure and replaces it with a CLI-based method where users provide their own schema and tasks files from any location.
+Logs are automatically generated in `notion_automation.log`. Check the logs for detailed information on API calls and errors.
