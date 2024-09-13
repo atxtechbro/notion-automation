@@ -1,66 +1,60 @@
 # Notion Automation
 
-This repository contains scripts and configurations to automate task creation in Notion. It is designed to be extensible for future automations.
+This repository provides scripts and configurations to automate task creation in Notion, designed for extensibility.
 
-## Setup
+## Quick Start
 
-1. **Clone the repository:**
+1. **Clone the repo & install dependencies:**
    ```bash
    git clone https://github.com/atxtechbro/notion-automation.git
    cd notion-automation
-   ```
-
-2. **Create and activate a virtual environment:**
-   ```bash
-   python -m venv venv
-   source venv/bin/activate   # On Windows, use `venv\Scripts\activate`
-   ```
-
-3. **Install the required packages:**
-   ```bash
    pip install -r requirements.txt
    ```
 
-4. **Set up environment variables:**
-   Create a `.env` file in the root of the repository and add your Notion API key and the Notion page ID where the database will be created:
-   ```env
+2. **Configure environment:**
+   Add your Notion API key and page ID to a `.env` file:
+   ```bash
    NOTION_API_KEY=your_notion_api_key
    NOTION_PAGE_ID=your_notion_page_id
    ```
 
-5. **Ensure your directory structure is as follows:**
-   ```
-   notion-automation/
-   ├── venv/
-   ├── scripts/
-   │   ├── __init__.py
-   │   └── create_database.py
-   ├── config/
-   │   └── database_configs/
-   │       └── gym_strength_ifbb_training.json
-   ├── .env
-   ├── requirements.txt
-   └── main.py
-   ```
-
-6. **Run the script:**
+3. **Create a database:**
+   Run the script using a JSON schema from `config/database_configs/`:
    ```bash
-   python -m scripts.create_database gym_strength_ifbb_training
+   python -m scripts.create_database your_config_name
    ```
 
-### Example Usage
+## Configuration
 
-To create a database using the `gym_strength_ifbb_training` configuration, use the following command:
-```bash
-python -m scripts.create_database gym_strength_ifbb_training
+- **Database schemas** and **tasks** are defined in JSON files within `config/database_configs/`. Customize schemas to fit your use case.
+  
+### Example JSON Schema:
+```json
+{
+  "title": "Project Tasks",
+  "properties": {
+    "Name": { "property_type": "title" },
+    "Status": { "property_type": "select", "options": [{"name": "To Do"}] }
+  },
+  "tasks": [
+    {
+      "properties": {
+        "Name": { "type": "title", "value": "Task 1" },
+        "Status": { "type": "select", "value": "To Do" }
+      }
+    }
+  ]
+}
 ```
 
-This will create a Notion database and tasks based on the `gym_strength_ifbb_training.json` configuration file located in the `config/database_configs/` directory.
+## Run Tests
+Run all tests using `pytest`:
+```bash
+pytest
+```
 
-### Notes
+## Logging
+Logs are saved to `notion_automation.log` for debugging.
 
-- Ensure that your Notion API key and page ID are correctly set in the `.env` file.
-- The JSON configuration files should be placed in the `config/database_configs/` directory.
-- You can add more configurations by creating additional JSON files in the `config/database_configs/` directory and running the script with the respective configuration name.
-
-By following these steps, you should be able to automate the creation of databases and tasks in Notion efficiently.
+## Contribute
+Submit pull requests or issues to help enhance this automation toolkit.
