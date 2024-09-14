@@ -93,8 +93,10 @@ def parse_schema(schema_data):
         else:
             # List of property dicts
             for prop in schema_data["properties"]:
-                name = prop["name"]
-                property_type = prop["type"]
+                name = prop.get("name")
+                property_type = prop.get("type")
+                if not name or not property_type:
+                    raise ValueError(f"Property definition is missing 'name' or 'type': {prop}")
                 options = prop.get("options", [])
                 property_options = [
                     PropertyOption(name=opt) if isinstance(opt, str) else PropertyOption(**opt)
@@ -106,6 +108,8 @@ def parse_schema(schema_data):
     elif isinstance(schema_data["properties"], dict):
         # Existing logic for dict format
         for name, prop in schema_data["properties"].items():
+            if 'property_type' not in prop:
+                raise ValueError(f"Property '{name}' is missing 'property_type'")
             property_type = prop["property_type"]
             options_data = prop.get("options", [])
             options = [PropertyOption(**option) for option in options_data]

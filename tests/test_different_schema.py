@@ -38,8 +38,9 @@ def test_invalid_schema_format():
     }
     '''
     schema_data = json.loads(schema_json)
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError) as exc_info:
         parse_schema(schema_data)
+    assert "missing 'property_type'" in str(exc_info.value)
 
 def test_task_with_missing_property(notion_client, requests_mock):
     task_data = {
