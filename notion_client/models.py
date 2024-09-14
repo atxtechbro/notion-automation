@@ -1,7 +1,7 @@
 # File: notion_client/models.py
 from typing import Any, Dict, List, Optional
 
-from pydantic import BaseModel
+from pydantic import BaseModel, FieldValidationInfo, field_validator
 
 
 class PropertyOption(BaseModel):
@@ -17,6 +17,13 @@ class PropertyOption(BaseModel):
 class PropertyConfig(BaseModel):
     property_type: str
     options: Optional[List[PropertyOption]] = None
+
+    @field_validator('property_type')
+    def validate_property_type(cls, v):
+        allowed_types = ['title', 'select', 'date', 'rich_text', 'number']
+        if v not in allowed_types:
+            raise ValueError(f"Unsupported property type: {v}")
+        return v
 
     def to_notion_format(self):
         notion_property = {}
@@ -44,23 +51,21 @@ class SchemaConfig(BaseModel):
 
 class TaskProperty(BaseModel):
     type: str
-    value: Any
+    value: Any = None
 
-    def to_notion_format(self):
-        if self.type == "title":
-            return {
-                "title": [{
-                    "type": "text",
-                    "text": {"content": self.value}
-                }]
-            }
-        elif self.type == "select":
-            return {"select": {"name": self.value}}
-        elif self.type == "date":
-            return {"date": {"start": self.value}}
-        # Add other property types as needed
-        else:
-            raise ValueError(f"Unsupported task property type: {self.type}")
+    @field_validator('type')
+    def validate_property_type(cls, v):
+        allowed_types = ['title', 'select', 'date', 'rich_text', 'number']
+        if v not in allowed_types:
+            raise ValueError(f"Unsupported task property type: {v}")
+        return v
+
+    @staticmethod
+    def from_value(name: str, value: Any, schema_properties: Dict[str, PropertyConfig]):
+        prop_config = schema_properties.get(name)
+        if not prop_config:
+            raise ValueError(f"Property '{name}' is not defined in the schema.")
+        return TaskProperty(type=prop_config.property_type, value=value)
 
 class TaskConfig(BaseModel):
     properties: Dict[str, TaskProperty]

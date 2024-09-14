@@ -36,24 +36,25 @@ Store your schema and tasks in the `plugins/` folder. The schema defines the dat
 ```json
 {
   "title": "Project Tasks",
-  "properties": {
-    "Name": { "title": {} },
-    "Status": {
-      "select": {
-        "options": [
-          { "name": "Not Started" },
-          { "name": "In Progress" },
-          { "name": "Completed" }
-        ]
-      }
+  "properties": [
+    {
+      "name": "Task Name",
+      "type": "title"
     },
-    "Priority": {
-      "select": {
-        "options": [{ "name": "Low" }, { "name": "Medium" }, { "name": "High" }]
-      }
+    {
+      "name": "Due Date",
+      "type": "date"
     },
-    "Due Date": { "date": {} }
-  }
+    {
+      "name": "Status",
+      "type": "select",
+      "options": [
+        { "name": "To Do", "color": "red" },
+        { "name": "In Progress", "color": "yellow" },
+        { "name": "Done", "color": "green" }
+      ]
+    }
+  ]
 }
 ```
 
@@ -63,20 +64,14 @@ Store your schema and tasks in the `plugins/` folder. The schema defines the dat
 {
   "tasks": [
     {
-      "properties": {
-        "Name": { "type": "title", "value": "Complete project documentation" },
-        "Status": { "type": "select", "value": "Not Started" },
-        "Priority": { "type": "select", "value": "High" },
-        "Due Date": { "type": "date", "value": "2024-09-15" }
-      }
+      "Task Name": "Implement feature X",
+      "Due Date": "2023-10-15",
+      "Status": "In Progress"
     },
     {
-      "properties": {
-        "Name": { "type": "title", "value": "Review pull requests" },
-        "Status": { "type": "select", "value": "In Progress" },
-        "Priority": { "type": "select", "value": "Medium" },
-        "Due Date": { "type": "date", "value": "2024-09-16" }
-      }
+      "Task Name": "Fix bug Y",
+      "Due Date": "2023-10-10",
+      "Status": "To Do"
     }
   ]
 }

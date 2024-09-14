@@ -1,5 +1,7 @@
-# File: tests/test_models.py
-from notion_client.models import SchemaConfig, PropertyConfig
+import pytest
+
+from notion_client.models import PropertyConfig, SchemaConfig, TaskProperty
+
 
 def test_schema_config():
     data = {
@@ -22,3 +24,11 @@ def test_invalid_property_config():
         prop = PropertyConfig(**data)
     except ValueError as e:
         assert str(e) == "Invalid property type: invalid_type"
+
+def test_property_config_validator():
+    with pytest.raises(ValueError):
+        PropertyConfig(property_type="invalid_type")
+
+def test_task_property_validator():
+    with pytest.raises(ValueError):
+        TaskProperty(type="unknown_type")

@@ -1,2 +1,18 @@
 2024-09-13 08:20:22,908 - notion_automation - INFO - Database 'Test DB' created with ID: fake_database_id
 2024-09-13 08:20:22,910 - notion_automation - ERROR - Failed to create database: {"error": "Unauthorized"}
+2024-09-13 13:35:36,375 - notion_automation - ERROR - Failed to create database: {"object":"error","status":400,"code":"validation_error","message":"body failed validation: body.properties.Status.select.options[0].color should be `\"default\"`, `\"gray\"`, `\"brown\"`, `\"orange\"`, `\"yellow\"`, `\"green\"`, `\"blue\"`, `\"purple\"`, `\"pink\"`, `\"red\"`, or `undefined`, instead was `null`.","request_id":"79eaddee-cc2a-477d-b8fb-f6faaf526852"}
+2024-09-13 13:37:36,476 - notion_automation - INFO - Database 'Project Tasks' created with ID: 1006bf94-c111-818b-8535-f7a2e390bf2e
+2024-09-13 13:37:36,783 - notion_automation - INFO - Task created in database '1006bf94-c111-818b-8535-f7a2e390bf2e'.
+2024-09-13 13:37:37,175 - notion_automation - INFO - Task created in database '1006bf94-c111-818b-8535-f7a2e390bf2e'.
+2024-09-13 13:50:33,119 - notion_automation - INFO - Database 'Project Tasks' created with ID: 1006bf94-c111-8186-a26f-c836980de2aa
+2024-09-13 13:51:13,646 - notion_automation - INFO - Database 'Project Tasks' created with ID: 1006bf94-c111-8171-be42-d3b65804a9a4
+2024-09-13 13:51:29,988 - notion_automation - INFO - Database 'Project Tasks' created with ID: 1006bf94-c111-81dc-992f-d17fe64d29f8
+2024-09-13 13:53:15,841 - notion_automation - INFO - Database 'Project Tasks' created with ID: 1006bf94-c111-817d-b22b-c35c555a3c73
+2024-09-13 13:53:35,536 - notion_automation - INFO - Database 'Project Tasks' created with ID: 1006bf94-c111-81f1-87c2-f1a1b06d7c62
+2024-09-13 13:58:21,445 - notion_automation - INFO - Database 'Project Tasks' created with ID: 1006bf94-c111-8101-a605-c9e1d8352cd8
+2024-09-13 14:02:09,727 - notion_automation - INFO - Database 'Project Tasks' created with ID: 1006bf94-c111-814e-b1b1-c6781b6bcbef
+2024-09-13 14:02:10,008 - notion_automation - ERROR - Failed to create task: {"object":"error","status":400,"code":"validation_error","message":"body failed validation. Fix one:\nbody.properties.Type.select.id should be defined, instead was `undefined`.\nbody.properties.Type.select.name should be a string, instead was `null`.","request_id":"3e1a5306-ea8d-4774-a64e-111baf1cddbb"}
+2024-09-13 14:04:15,890 - notion_automation - INFO - Database 'Project Tasks' created with ID: 1006bf94-c111-8152-8ac9-c8d0decc2d1a
+2024-09-13 14:04:17,978 - notion_automation - ERROR - Failed to create task: {"object":"error","status":400,"code":"validation_error","message":"body failed validation. Fix one:\nbody.properties.Type.select.id should be defined, instead was `undefined`.\nbody.properties.Type.select.name should be a string, instead was `null`.","request_id":"def6977e-d052-43fb-b402-804df036cd60"}
+2024-09-13 19:01:28,060 - notion_automation - INFO - Database 'Test DB' created with ID: fake_database_id
+2024-09-13 19:01:28,062 - notion_automation - ERROR - Failed to create database: {"error": "Unauthorized"}
