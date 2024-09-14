@@ -1,9 +1,8 @@
-import os
 import json
-from typing import List
+import os
+
 from .models import SchemaConfig, TaskConfig
-import os
-import json
+
 
 class ConfigManager:
     def __init__(self, config_path='plugins'):

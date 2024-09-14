@@ -1,9 +1,6 @@
-import json
-
 import pytest
 
 from cli import parse_natural_language_properties, parse_schema
-from notion_client.models import PropertyConfig, PropertyOption
 
 
 def test_parse_schema_natural_language():

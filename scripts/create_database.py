@@ -1,7 +1,9 @@
 import argparse
 import os
+
 from notion_client.api import NotionClient
 from notion_client.config import ConfigManager
+
 
 def main(schema_name, tasks_name):
     config_manager = ConfigManager(config_path=args.config_path)

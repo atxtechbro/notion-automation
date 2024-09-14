@@ -1,4 +1,3 @@
-# File: notion_client/api.py
 import requests
 
 from .logger import logger

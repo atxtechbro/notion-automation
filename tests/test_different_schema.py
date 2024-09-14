@@ -2,8 +2,14 @@ import json
 
 import pytest
 
-from notion_client.models import PropertyConfig, PropertyOption, SchemaConfig, TaskProperty
+from cli import parse_schema
+from notion_client.api import NotionClient
+from notion_client.models import PropertyConfig, SchemaConfig, TaskProperty
 
+
+@pytest.fixture
+def notion_client():
+    return NotionClient(api_key="fake_api_key")
 
 def test_load_schema_alternative_format():
     schema_json = '''
@@ -16,14 +22,7 @@ def test_load_schema_alternative_format():
     }
     '''
     schema_data = json.loads(schema_json)
-    # Simulate loading the schema as in cli.py
-    properties = {}
-    for prop in schema_data['properties']:
-        name = prop['name']
-        property_type = prop['type']
-        options = prop.get('options', [])
-        property_options = [PropertyOption(name=opt) if isinstance(opt, str) else PropertyOption(**opt) for opt in options]
-        properties[name] = PropertyConfig(property_type=property_type, options=property_options)
+    properties = parse_schema(schema_data)
     schema_config = SchemaConfig(title=schema_data['title'], properties=properties)
     assert schema_config.title == "Test Schema"
     assert "Name" in schema_config.properties
@@ -40,14 +39,9 @@ def test_invalid_schema_format():
     '''
     schema_data = json.loads(schema_json)
     with pytest.raises(ValueError):
-        # Attempt to parse invalid schema
-        properties = {}
-        for name, prop in schema_data['properties'].items():
-            property_type = prop['property_type']  # This will fail
-
+        parse_schema(schema_data)
 
 def test_task_with_missing_property(notion_client, requests_mock):
-    # Assuming notion_client is a fixture with a mock API key
     task_data = {
         "Task Name": "Sample Task",
         "Undefined Property": "Some Value"

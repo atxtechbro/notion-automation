@@ -1,10 +1,8 @@
-# File: tests/test_api.py
 import pytest
-from notion_client.api import NotionClient
-from notion_client.models import SchemaConfig, TaskConfig
 
-import sys
-import os
+from notion_client.api import NotionClient
+from notion_client.models import SchemaConfig
+
 
 @pytest.fixture
 def notion_client():

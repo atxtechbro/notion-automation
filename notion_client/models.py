@@ -1,7 +1,6 @@
-# File: notion_client/models.py
 from typing import Any, Dict, List, Optional
 
-from pydantic import BaseModel, FieldValidationInfo, field_validator
+from pydantic import BaseModel, ValidationInfo, field_validator
 
 
 class PropertyOption(BaseModel):
@@ -14,33 +13,36 @@ class PropertyOption(BaseModel):
             data['color'] = self.color
         return data
 
+
 class PropertyConfig(BaseModel):
     property_type: str
     options: Optional[List[PropertyOption]] = None
 
     @field_validator('property_type')
-    def validate_property_type(cls, v):
+    def validate_property_type(cls, v, info: ValidationInfo):
         allowed_types = ['title', 'select', 'date', 'rich_text', 'number']
         if v not in allowed_types:
             raise ValueError(f"Unsupported property type: {v}")
         return v
 
     def to_notion_format(self):
-        notion_property = {}
         if self.property_type == "title":
-            notion_property = {"title": {}}
+            return {"title": {}}
         elif self.property_type == "select":
-            notion_property = {
+            return {
                 "select": {
-                    "options": [option.to_notion_format() for option in self.options]
+                    "options": [option.to_notion_format() for option in self.options or []]
                 }
             }
         elif self.property_type == "date":
-            notion_property = {"date": {}}
-        # Add other property types as needed
+            return {"date": {}}
+        elif self.property_type == "rich_text":
+            return {"rich_text": {}}
+        elif self.property_type == "number":
+            return {"number": {}}
         else:
             raise ValueError(f"Unsupported property type: {self.property_type}")
-        return notion_property
+
 
 class SchemaConfig(BaseModel):
     title: str
@@ -49,12 +51,13 @@ class SchemaConfig(BaseModel):
     def to_notion_properties(self):
         return {name: prop.to_notion_format() for name, prop in self.properties.items()}
 
+
 class TaskProperty(BaseModel):
     type: str
     value: Any = None
 
     @field_validator('type')
-    def validate_property_type(cls, v):
+    def validate_property_type(cls, v, info: ValidationInfo):
         allowed_types = ['title', 'select', 'date', 'rich_text', 'number']
         if v not in allowed_types:
             raise ValueError(f"Unsupported task property type: {v}")
@@ -66,6 +69,37 @@ class TaskProperty(BaseModel):
         if not prop_config:
             raise ValueError(f"Property '{name}' is not defined in the schema.")
         return TaskProperty(type=prop_config.property_type, value=value)
+
+    def to_notion_format(self):
+        if self.type == "title":
+            return {
+                "title": [{
+                    "type": "text",
+                    "text": {"content": str(self.value)}
+                }]
+            }
+        elif self.type == "rich_text":
+            return {
+                "rich_text": [{
+                    "type": "text",
+                    "text": {"content": str(self.value)}
+                }]
+            }
+        elif self.type == "select":
+            return {
+                "select": {"name": str(self.value)}
+            }
+        elif self.type == "number":
+            return {
+                "number": float(self.value)
+            }
+        elif self.type == "date":
+            return {
+                "date": {"start": str(self.value)}
+            }
+        else:
+            raise ValueError(f"Unsupported task property type: {self.type}")
+
 
 class TaskConfig(BaseModel):
     properties: Dict[str, TaskProperty]
