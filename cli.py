@@ -1,6 +1,7 @@
 import argparse
 import json
 import os
+import re
 import sys
 
 from dotenv import load_dotenv
@@ -154,21 +155,17 @@ def parse_natural_language_properties(property_descriptions):
         options = None
         property_type = 'rich_text'  # Default type
 
+        # Check for keywords to determine property type
         if "date" in rest.lower():
             property_type = "date"
-        elif "status" in rest.lower() or "select" in rest.lower():
+        elif any(keyword in rest.lower() for keyword in ["status", "select", "category"]):
             property_type = "select"
-            # Here, you could implement logic to extract options from the rest
-            # For now, using default options
-            options = [
-                PropertyOption(name="To Do"),
-                PropertyOption(name="In Progress"),
-                PropertyOption(name="Done"),
-            ]
-        elif "number" in rest.lower():
-            property_type = "number"
-        elif "title" in rest.lower():
-            property_type = "title"
+        
+        # Detect options in parentheses
+        match = re.search(r'\((.*?)\)', rest)
+        if match:
+            options_str = match.group(1)
+            options = [PropertyOption(name=opt.strip()) for opt in options_str.split(",")]
 
         properties[name.strip()] = PropertyConfig(
             property_type=property_type, options=options

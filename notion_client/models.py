@@ -67,7 +67,7 @@ class EntryProperty(BaseModel):
     def validate_property_type(cls, v, info: ValidationInfo):
         allowed_types = ['title', 'select', 'date', 'rich_text', 'number', 'multi_select', 'checkbox']
         if v not in allowed_types:
-            raise ValueError(f"Unsupported task property type: {v}")
+            raise ValueError(f"Unsupported entry property type: {v}")
         return v
 
     @staticmethod
@@ -92,7 +92,7 @@ class EntryProperty(BaseModel):
                     "text": {"content": str(self.value)}
                 }]
             }
-        elif self.type == "multi_select":  # Handle 'multi_select'
+        elif self.type == "multi_select":
             if not isinstance(self.value, list):
                 raise ValueError("Value for multi_select must be a list.")
             return {
@@ -110,14 +110,15 @@ class EntryProperty(BaseModel):
             return {
                 "date": {"start": str(self.value)}
             }
-        elif self.type == "checkbox":  # Handle 'checkbox'
+        elif self.type == "checkbox":
             if not isinstance(self.value, bool):
                 raise ValueError("Value for checkbox must be a boolean.")
             return {
                 "checkbox": self.value
             }
         else:
-            raise ValueError(f"Unsupported task property type: {self.type}")
+            # Corrected error message
+            raise ValueError(f"Unsupported entry property type: {self.type}")
 
 class EntryConfig(BaseModel):
     properties: Dict[str, EntryProperty]

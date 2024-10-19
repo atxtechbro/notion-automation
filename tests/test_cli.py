@@ -19,6 +19,15 @@ def test_parse_schema_natural_language():
     assert properties["Due Date"].property_type == "date"
     assert "Category" in properties
     assert properties["Category"].property_type == "select"
+    
+    # Convert PropertyOption objects to dicts for comparison
+    expected_options = [
+        {"name": "Type A", "color": None},
+        {"name": "Type B", "color": None},
+        {"name": "Type C", "color": None}
+    ]
+    actual_options = [option.dict() for option in properties["Category"].options]
+    assert actual_options == expected_options
 
 def test_parse_schema_invalid_format():
     schema_data = {
