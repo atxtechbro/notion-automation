@@ -12,8 +12,8 @@ from notion_client.models import PropertyConfig, PropertyOption, SchemaConfig, T
 # Load environment variables from .env
 load_dotenv()
 
-def create_database(schema_path, tasks_path):
-    """Creates a Notion database and adds tasks."""
+def create_database(schema_path, tasks_path=None):
+    """Creates a Notion database and optionally adds tasks."""
     notion_api_key = os.getenv("NOTION_API_KEY")
     notion_page_id = os.getenv("NOTION_PAGE_ID")
 
@@ -32,24 +32,6 @@ def create_database(schema_path, tasks_path):
 
         schema_config = SchemaConfig(title=schema_data["title"], properties=properties)
 
-        with open(tasks_path, "r") as tasks_file:
-            tasks_data = json.load(tasks_file)
-
-        tasks_config = []
-        for task_data in tasks_data.get("tasks", []):
-            task_properties = {}
-            if "properties" in task_data:
-                # Existing format
-                for name, prop in task_data["properties"].items():
-                    task_properties[name] = TaskProperty(**prop)
-            else:
-                # Simplified format
-                for name, value in task_data.items():
-                    task_properties[name] = TaskProperty.from_value(
-                        name, value, properties
-                    )
-            tasks_config.append(TaskConfig(properties=task_properties))
-
     except FileNotFoundError as e:
         error_message = f"Error: {e}"
         logger.error(error_message)
@@ -61,10 +43,48 @@ def create_database(schema_path, tasks_path):
         print(error_message)
         sys.exit(1)
     except Exception as e:
-        error_message = f"Error processing schema or tasks: {e}"
+        error_message = f"Error processing schema: {e}"
         logger.error(error_message)
         print(error_message)
         sys.exit(1)
+
+    # Initialize tasks_config to an empty list
+    tasks_config = []
+
+    if tasks_path:
+        try:
+            with open(tasks_path, "r") as tasks_file:
+                tasks_data = json.load(tasks_file)
+
+            for task_data in tasks_data.get("tasks", []):
+                task_properties = {}
+                if "properties" in task_data:
+                    # Existing format
+                    for name, prop in task_data["properties"].items():
+                        task_properties[name] = TaskProperty(**prop)
+                else:
+                    # Simplified format
+                    for name, value in task_data.items():
+                        task_properties[name] = TaskProperty.from_value(
+                            name, value, properties
+                        )
+                tasks_config.append(TaskConfig(properties=task_properties))
+
+        except FileNotFoundError as e:
+            error_message = f"Error: {e}"
+            logger.error(error_message)
+            print(error_message)
+            sys.exit(1)
+        except json.JSONDecodeError as e:
+            error_message = f"Error parsing JSON: {e}"
+            logger.error(error_message)
+            print(error_message)
+            sys.exit(1)
+        except Exception as e:
+            error_message = f"Error processing tasks: {e}"
+            logger.error(error_message)
+            print(error_message)
+            sys.exit(1)
 
     try:
         notion_client = NotionClient(api_key=notion_api_key)
@@ -73,9 +93,10 @@ def create_database(schema_path, tasks_path):
         )
         print(f"Database created successfully with ID: {database_id}")
 
-        for task in tasks_config:
-            notion_client.create_task(database_id=database_id, task=task)
-        print("Tasks added successfully.")
+        if tasks_config:
+            for task in tasks_config:
+                notion_client.create_task(database_id=database_id, task=task)
+            print("Tasks added successfully.")
     except Exception as e:
         error_message = f"Error creating database or tasks: {e}"
         logger.error(error_message)
@@ -161,7 +182,7 @@ if __name__ == "__main__":
         description="Create a Notion database and add tasks."
     )
     parser.add_argument("--schema", required=True, help="Path to the JSON schema file.")
-    parser.add_argument("--tasks", required=True, help="Path to the JSON tasks file.")
+    parser.add_argument("--tasks", required=False, help="Path to the JSON tasks file.")
 
     # Parse the arguments
     args = parser.parse_args()

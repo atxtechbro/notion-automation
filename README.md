@@ -85,7 +85,13 @@ To create a database with tasks, run:
 python cli.py --schema plugins/schema.json --tasks plugins/tasks.json
 ```
 
-This will automatically create a Notion database and add your tasks.
+If you want to create an empty database without adding tasks, simply omit the --tasks argument:
+
+```bash
+python cli.py --schema plugins/schema.json
+```
+
+This will create a Notion database based on your schema without adding any tasks.
 
 ## Core Files
 
