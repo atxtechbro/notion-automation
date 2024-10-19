@@ -1,7 +1,7 @@
 import requests
 
 from .logger import logger
-from .models import SchemaConfig, TaskConfig
+from .models import EntryConfig, SchemaConfig
 
 
 class NotionClient:
@@ -30,16 +30,16 @@ class NotionClient:
             logger.error(f"Failed to create database: {e.response.text}")
             raise
 
-    def create_task(self, database_id: str, task: TaskConfig):
+    def create_entry(self, database_id: str, entry: EntryConfig):
         url = 'https://api.notion.com/v1/pages'
         data = {
             "parent": {"database_id": database_id},
-            "properties": task.to_notion_properties()
+            "properties": entry.to_notion_properties()
         }
         try:
             response = requests.post(url, headers=self.headers, json=data)
             response.raise_for_status()
-            logger.info(f"Task created in database '{database_id}'.")
+            logger.info(f"Entry created in database '{database_id}'.")
         except requests.exceptions.HTTPError as e:
-            logger.error(f"Failed to create task: {e.response.text}")
+            logger.error(f"Failed to create entry: {e.response.text}")
             raise

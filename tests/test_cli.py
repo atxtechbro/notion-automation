@@ -7,18 +7,18 @@ def test_parse_schema_natural_language():
     schema_data = {
         "title": "Test Schema",
         "properties": [
-            "Task Name: The name of the task.",
-            "Due Date: The date by which the task should be completed.",
-            "Status: The current status of the task (To Do, In Progress, Done)."
+            "Name: The name of the entry.",
+            "Due Date: The date by which the entry should be completed.",
+            "Category: The category of the entry (Type A, Type B, Type C)."
         ]
     }
     properties = parse_schema(schema_data)
-    assert "Task Name" in properties
-    assert properties["Task Name"].property_type == "rich_text"
+    assert "Name" in properties
+    assert properties["Name"].property_type == "rich_text"
     assert "Due Date" in properties
     assert properties["Due Date"].property_type == "date"
-    assert "Status" in properties
-    assert properties["Status"].property_type == "select"
+    assert "Category" in properties
+    assert properties["Category"].property_type == "select"
 
 def test_parse_schema_invalid_format():
     schema_data = {

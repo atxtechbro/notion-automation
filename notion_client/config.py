@@ -1,7 +1,7 @@
 import json
 import os
 
-from .models import SchemaConfig, TaskConfig
+from .models import EntryConfig, SchemaConfig
 
 
 class ConfigManager:
@@ -16,11 +16,11 @@ class ConfigManager:
             data = json.load(file)
         return SchemaConfig(**data)
 
-    def load_tasks(self, tasks_name: str) -> list:
-        file_path = os.path.join(self.config_path, f"{tasks_name}.json")
+    def load_entries(self, entries_name: str) -> list:
+        file_path = os.path.join(self.config_path, f"{entries_name}.json")
         if not os.path.exists(file_path):
-            raise FileNotFoundError(f"Tasks file '{file_path}' not found.")
+            raise FileNotFoundError(f"Entries file '{file_path}' not found.")
         with open(file_path, 'r') as file:
             data = json.load(file)
-        tasks = [TaskConfig(**task) for task in data.get("tasks", [])]
-        return tasks
+        entries = [EntryConfig(**entry) for entry in data.get("entries", [])]
+        return entries

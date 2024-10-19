@@ -1,11 +1,11 @@
 # Notion Automation
 
-This repository automates the creation of databases and tasks in Notion using predefined JSON schema and tasks. It is optimized for extensibility and ease of use with minimal configuration.
+This repository automates the creation of databases and entries in Notion using predefined JSON schemas and entry definitions. It is optimized for extensibility and ease of use with minimal configuration.
 
 ## Core Magic ✨
 
-- **Automates Notion task creation**: Define your tasks and schema in JSON, and let the automation do the heavy lifting.
-- **Extensible & Customizable**: Plug-and-play JSON files for schema and task definitions.
+- **Automates Notion data entry**: Define your entries and schema in JSON, and let the automation do the heavy lifting.
+- **Extensible & Customizable**: Plug-and-play JSON files for schema and entry definitions.
 - **Seamless API Integration**: Built-in Notion API integration for easy database creation.
 
 ## Quick Setup
@@ -27,51 +27,63 @@ NOTION_API_KEY=your_notion_api_key
 NOTION_PAGE_ID=your_notion_page_id
 ```
 
-### 3. Define Your Schema and Tasks
+### 3. Define Your Schema and Entries
 
-Store your schema and tasks in the `plugins/` folder. The schema defines the database structure, and the tasks define the content.
+Store your schema and entries (optional) in the `plugins/` folder. The schema defines the database structure, and the entries define the content.
 
 #### Example Schema (`schema.json`):
 
 ```json
 {
-  "title": "Project Tasks",
+  "title": "Project Entities",
   "properties": [
     {
-      "name": "Task Name",
+      "name": "Name",
       "type": "title"
     },
     {
-      "name": "Due Date",
+      "name": "Type",
+      "type": "select",
+      "options": [
+        { "name": "Entity", "color": "blue" },
+        { "name": "Component", "color": "green" },
+        { "name": "Module", "color": "purple" }
+      ]
+    },
+    {
+      "name": "Created At",
       "type": "date"
     },
     {
-      "name": "Status",
-      "type": "select",
+      "name": "Tags",
+      "type": "multi_select",
       "options": [
-        { "name": "To Do", "color": "red" },
-        { "name": "In Progress", "color": "yellow" },
-        { "name": "Done", "color": "green" }
+        { "name": "Core", "color": "red" },
+        { "name": "Active", "color": "green" },
+        { "name": "Archived", "color": "gray" },
+        { "name": "Reference", "color": "yellow" }
       ]
     }
   ]
 }
 ```
 
-#### Example Tasks (`tasks.json`):
+#### Example Entries (`entries.json`):
 
 ```json
 {
-  "tasks": [
+  "entries": [
     {
-      "Task Name": "Implement feature X",
-      "Due Date": "2023-10-15",
-      "Status": "In Progress"
+      "Name": "Alpha",
+      "Type": "Entity",
+      "Created At": "2023-10-15",
+      "Tags": ["Core", "Active"]
     },
     {
-      "Task Name": "Fix bug Y",
-      "Due Date": "2023-10-10",
-      "Status": "To Do"
+      "Name": "Beta",
+      "Type": "Entity",
+      "Created At": "2023-10-10",
+      "Tags": ["Archived", "Reference"]
     }
   ]
 }
@@ -79,25 +91,25 @@ Store your schema and tasks in the `plugins/` folder. The schema defines the dat
 
 ### 4. Run the Magic 🪄
 
-To create a database with tasks, run:
+To create a database with preseeded entries, run:
 
 ```bash
-python cli.py --schema plugins/schema.json --tasks plugins/tasks.json
+python cli.py --schema plugins/schema.json --entries plugins/entries.json
 ```
 
-If you want to create an empty database without adding tasks, simply omit the --tasks argument:
+If you want to create an empty database without adding entries, simply omit the --entries argument:
 
 ```bash
 python cli.py --schema plugins/schema.json
 ```
 
-This will create a Notion database based on your schema without adding any tasks.
+This will create a Notion database based on your schema without adding any entries.
 
 ## Core Files
 
-- **`cli.py`**: The main entry point for creating databases and tasks.
+- **`cli.py`**: The main entry point for creating databases and entries.
 - **`notion_client/`**: Contains API integration logic and models.
-- **`plugins/`**: Store your schema and task JSON files here. This folder is `.gitignore`d for privacy and customization.
+- **`plugins/`**: Store your schema and entry JSON files here. This folder is `.gitignore`d for privacy and customization.
 
 ## Logs & Debugging
 

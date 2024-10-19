@@ -4,7 +4,7 @@ import pytest
 
 from cli import parse_schema
 from notion_client.api import NotionClient
-from notion_client.models import PropertyConfig, SchemaConfig, TaskProperty
+from notion_client.models import EntryProperty, PropertyConfig, SchemaConfig
 
 
 @pytest.fixture
@@ -42,19 +42,19 @@ def test_invalid_schema_format():
         parse_schema(schema_data)
     assert "missing 'property_type'" in str(exc_info.value)
 
-def test_task_with_missing_property(notion_client, requests_mock):
-    task_data = {
-        "Task Name": "Sample Task",
+def test_entry_with_missing_property(notion_client, requests_mock):
+    entry_data = {
+        "Name": "Sample Entry",
         "Undefined Property": "Some Value"
     }
     schema_properties = {
-        "Task Name": PropertyConfig(property_type="title"),
+        "Name": PropertyConfig(property_type="title"),
         # "Undefined Property" is not defined in the schema
     }
     with pytest.raises(ValueError):
-        task_properties = {}
-        for name, value in task_data.items():
-            task_properties[name] = TaskProperty.from_value(name, value, schema_properties)
+        entry_properties = {}
+        for name, value in entry_data.items():
+            entry_properties[name] = EntryProperty.from_value(name, value, schema_properties)
 
 def test_database_creation_failure(notion_client, requests_mock):
     schema = SchemaConfig(title="Test DB", properties={})

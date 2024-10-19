@@ -7,13 +7,13 @@ from dotenv import load_dotenv
 
 from notion_client.api import NotionClient
 from notion_client.logger import logger
-from notion_client.models import PropertyConfig, PropertyOption, SchemaConfig, TaskConfig, TaskProperty
+from notion_client.models import EntryConfig, EntryProperty, PropertyConfig, PropertyOption, SchemaConfig
 
 # Load environment variables from .env
 load_dotenv()
 
-def create_database(schema_path, tasks_path=None):
-    """Creates a Notion database and optionally adds tasks."""
+def create_database(schema_path, entries_path=None):
+    """Creates a Notion database and optionally adds entries."""
     notion_api_key = os.getenv("NOTION_API_KEY")
     notion_page_id = os.getenv("NOTION_PAGE_ID")
 
@@ -48,27 +48,26 @@ def create_database(schema_path, tasks_path=None):
         print(error_message)
         sys.exit(1)
 
-    # Initialize tasks_config to an empty list
-    tasks_config = []
+    entries_config = []
 
-    if tasks_path:
+    if entries_path:
         try:
-            with open(tasks_path, "r") as tasks_file:
-                tasks_data = json.load(tasks_file)
+            with open(entries_path, "r") as entries_file:
+                entries_data = json.load(entries_file)
 
-            for task_data in tasks_data.get("tasks", []):
-                task_properties = {}
-                if "properties" in task_data:
+            for entry in entries_data.get("entries", []):
+                entry_properties = {}
+                if "properties" in entry:
                     # Existing format
-                    for name, prop in task_data["properties"].items():
-                        task_properties[name] = TaskProperty(**prop)
+                    for name, prop in entry["properties"].items():
+                        entry_properties[name] = EntryProperty(**prop)
                 else:
                     # Simplified format
-                    for name, value in task_data.items():
-                        task_properties[name] = TaskProperty.from_value(
+                    for name, value in entry.items():
+                        entry_properties[name] = EntryProperty.from_value(
                             name, value, properties
                         )
-                tasks_config.append(TaskConfig(properties=task_properties))
+                entries_config.append(EntryConfig(entry_properties))
 
         except FileNotFoundError as e:
             error_message = f"Error: {e}"
@@ -81,24 +80,24 @@ def create_database(schema_path, tasks_path=None):
             print(error_message)
             sys.exit(1)
         except Exception as e:
-            error_message = f"Error processing tasks: {e}"
+            error_message = f"Error processing entries: {e}"
             logger.error(error_message)
             print(error_message)
             sys.exit(1)
 
     try:
-        notion_client = NotionClient(api_key=notion_api_key)
+        notion_client = NotionClient(notion_api_key)
         database_id = notion_client.create_database(
             parent_id=notion_page_id, schema=schema_config
         )
         print(f"Database created successfully with ID: {database_id}")
 
-        if tasks_config:
-            for task in tasks_config:
-                notion_client.create_task(database_id=database_id, task=task)
-            print("Tasks added successfully.")
+        if entries_config:
+            for entry in entries_config:
+                notion_client.create_entry(database_id, entry)
+            print("Entries added successfully.")
     except Exception as e:
-        error_message = f"Error creating database or tasks: {e}"
+        error_message = f"Error creating database or entries: {e}"
         logger.error(error_message)
         print(error_message)
         sys.exit(1)
@@ -179,13 +178,14 @@ def parse_natural_language_properties(property_descriptions):
 if __name__ == "__main__":
     # Set up argument parser
     parser = argparse.ArgumentParser(
-        description="Create a Notion database and add tasks."
+        description="Create a Notion database and add entries."
     )
     parser.add_argument("--schema", required=True, help="Path to the JSON schema file.")
-    parser.add_argument("--tasks", required=False, help="Path to the JSON tasks file.")
+    parser.add_argument("--entries", required=False, help="Path to the JSON entries file.")
+
 
     # Parse the arguments
     args = parser.parse_args()
 
     # Call the create_database function with the provided arguments
-    create_database(args.schema, args.tasks)
+    create_database(args.schema, args.entries)

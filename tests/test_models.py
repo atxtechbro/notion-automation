@@ -1,7 +1,7 @@
 import pytest
 from pydantic import ValidationError
 
-from notion_client.models import PropertyConfig, SchemaConfig, TaskProperty
+from notion_client.models import EntryProperty, PropertyConfig, SchemaConfig
 
 
 def test_schema_config():
@@ -32,19 +32,19 @@ def test_property_config_validator():
     error_message = str(exc_info.value)
     assert "Unsupported property type: invalid_type" in error_message
 
-def test_task_property_validator():
+def test_entry_property_validator():
     with pytest.raises(ValidationError) as exc_info:
-        TaskProperty(type="unknown_type")
+        EntryProperty(type="unknown_type")
     error_message = str(exc_info.value)
-    assert "Unsupported task property type: unknown_type" in error_message
+    assert "Unsupported entry property type: unknown_type" in error_message
 
-def test_task_property_to_notion_format():
-    task_prop = TaskProperty(type="title", value="Sample Task")
-    notion_format = task_prop.to_notion_format()
+def test_entry_property_to_notion_format():
+    entry_prop = EntryProperty(type="title", value="Sample Entry")
+    notion_format = entry_prop.to_notion_format()
     expected_format = {
         "title": [{
             "type": "text",
-            "text": {"content": "Sample Task"}
+            "text": {"content": "Sample Entry"}
         }]
     }
     assert notion_format == expected_format

@@ -59,7 +59,7 @@ class SchemaConfig(BaseModel):
         return {name: prop.to_notion_format() for name, prop in self.properties.items()}
 
 
-class TaskProperty(BaseModel):
+class EntryProperty(BaseModel):
     type: str
     value: Any = None
 
@@ -75,7 +75,7 @@ class TaskProperty(BaseModel):
         prop_config = schema_properties.get(name)
         if not prop_config:
             raise ValueError(f"Property '{name}' is not defined in the schema.")
-        return TaskProperty(type=prop_config.property_type, value=value)
+        return EntryProperty(type=prop_config.property_type, value=value)
 
     def to_notion_format(self):
         if self.type == "title":
@@ -119,8 +119,8 @@ class TaskProperty(BaseModel):
         else:
             raise ValueError(f"Unsupported task property type: {self.type}")
 
-class TaskConfig(BaseModel):
-    properties: Dict[str, TaskProperty]
+class EntryConfig(BaseModel):
+    properties: Dict[str, EntryProperty]
 
     def to_notion_properties(self):
         return {name: prop.to_notion_format() for name, prop in self.properties.items()}
