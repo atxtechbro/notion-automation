@@ -20,7 +20,7 @@ class PropertyConfig(BaseModel):
 
     @field_validator('property_type')
     def validate_property_type(cls, v, info: ValidationInfo):
-        allowed_types = ['title', 'select', 'date', 'rich_text', 'number']
+        allowed_types = ['title', 'select', 'date', 'rich_text', 'number', 'multi_select', 'checkbox']
         if v not in allowed_types:
             raise ValueError(f"Unsupported property type: {v}")
         return v
@@ -34,15 +34,22 @@ class PropertyConfig(BaseModel):
                     "options": [option.to_notion_format() for option in self.options or []]
                 }
             }
+        elif self.property_type == "multi_select":
+            return {
+                "multi_select": {
+                    "options": [option.to_notion_format() for option in self.options or []]
+                }
+            }
         elif self.property_type == "date":
             return {"date": {}}
         elif self.property_type == "rich_text":
             return {"rich_text": {}}
         elif self.property_type == "number":
             return {"number": {}}
+        elif self.property_type == "checkbox":  # Handle 'checkbox'
+            return {"checkbox": {}}
         else:
             raise ValueError(f"Unsupported property type: {self.property_type}")
-
 
 class SchemaConfig(BaseModel):
     title: str
@@ -58,7 +65,7 @@ class TaskProperty(BaseModel):
 
     @field_validator('type')
     def validate_property_type(cls, v, info: ValidationInfo):
-        allowed_types = ['title', 'select', 'date', 'rich_text', 'number']
+        allowed_types = ['title', 'select', 'date', 'rich_text', 'number', 'multi_select', 'checkbox']
         if v not in allowed_types:
             raise ValueError(f"Unsupported task property type: {v}")
         return v
@@ -85,6 +92,12 @@ class TaskProperty(BaseModel):
                     "text": {"content": str(self.value)}
                 }]
             }
+        elif self.type == "multi_select":  # Handle 'multi_select'
+            if not isinstance(self.value, list):
+                raise ValueError("Value for multi_select must be a list.")
+            return {
+                "multi_select": [{"name": str(v)} for v in self.value]
+            }
         elif self.type == "select":
             return {
                 "select": {"name": str(self.value)}
@@ -97,9 +110,14 @@ class TaskProperty(BaseModel):
             return {
                 "date": {"start": str(self.value)}
             }
+        elif self.type == "checkbox":  # Handle 'checkbox'
+            if not isinstance(self.value, bool):
+                raise ValueError("Value for checkbox must be a boolean.")
+            return {
+                "checkbox": self.value
+            }
         else:
             raise ValueError(f"Unsupported task property type: {self.type}")
-
 
 class TaskConfig(BaseModel):
     properties: Dict[str, TaskProperty]
