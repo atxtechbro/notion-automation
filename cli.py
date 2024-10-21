@@ -13,14 +13,17 @@ from notion_client.models import EntryConfig, EntryProperty, PropertyConfig, Pro
 # Load environment variables from .env
 load_dotenv()
 
-def create_database(schema_path, entries_path=None):
+def create_database(schema_path, entries_path=None, page_id=None):
     """Creates a Notion database and optionally adds entries."""
     notion_api_key = os.getenv("NOTION_API_KEY")
-    notion_page_id = os.getenv("NOTION_PAGE_ID")
+    notion_page_id_env = os.getenv("NOTION_PAGE_ID")
+
+    # Determine the page ID to use
+    notion_page_id = page_id if page_id else notion_page_id_env
 
     if not notion_api_key or not notion_page_id:
         print(
-            "Error: Please set the NOTION_API_KEY and NOTION_PAGE_ID in the .env file."
+            "Error: Please set the NOTION_API_KEY and NOTION_PAGE_ID in the .env file or provide them as CLI arguments."
         )
         sys.exit(1)
 
@@ -180,10 +183,10 @@ if __name__ == "__main__":
     )
     parser.add_argument("--schema", required=True, help="Path to the JSON schema file.")
     parser.add_argument("--entries", required=False, help="Path to the JSON entries file.")
-
+    parser.add_argument("--page-id", required=False, help="Target Notion Page ID to create the database in.")
 
     # Parse the arguments
     args = parser.parse_args()
 
     # Call the create_database function with the provided arguments
-    create_database(args.schema, args.entries)
+    create_database(args.schema, args.entries, args.page_id)

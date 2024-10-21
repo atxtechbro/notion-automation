@@ -91,19 +91,29 @@ Store your schema and entries (optional) in the `plugins/` folder. The schema de
 
 ### 4. Run the Magic 🪄
 
-To create a database with preseeded entries, run:
+#### **Option 1: Using Environment Variable for Page ID**
+
+To create a database with preseeded entries in the default page specified in the `.env` file, run:
 
 ```bash
 python cli.py --schema plugins/schema.json --entries plugins/entries.json
 ```
 
-If you want to create an empty database without adding entries, simply omit the --entries argument:
+If you want to create an empty database without adding entries, simply omit the `--entries` argument:
 
 ```bash
 python cli.py --schema plugins/schema.json
 ```
 
-This will create a Notion database based on your schema without adding any entries.
+#### **Option 2: Specifying Target Page ID via CLI**
+
+To create a database in a specific Notion page by providing the `--page-id` argument, use:
+
+```bash
+python cli.py --schema plugins/schema.json --entries plugins/entries.json --page-id your_target_page_id
+```
+
+**Note:** Providing the `--page-id` argument will override the `NOTION_PAGE_ID` specified in the `.env` file for that execution.
 
 ## Core Files
 
