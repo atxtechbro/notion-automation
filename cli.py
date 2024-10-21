@@ -68,7 +68,8 @@ def create_database(schema_path, entries_path=None):
                         entry_properties[name] = EntryProperty.from_value(
                             name, value, properties
                         )
-                entries_config.append(EntryConfig(entry_properties))
+                # Use keyword argument here
+                entries_config.append(EntryConfig(properties=entry_properties))
 
         except FileNotFoundError as e:
             error_message = f"Error: {e}"
