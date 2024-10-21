@@ -36,27 +36,26 @@ Store your schema and entries (optional) in the `plugins/` folder. The schema de
 ```json
 {
   "title": "Project Entities",
-  "properties": [
-    {
-      "name": "Name",
-      "type": "title"
+  "properties": {
+    "Entity ID": {
+      "property_type": "title"
     },
-    {
-      "name": "Type",
-      "type": "select",
+    "Name": {
+      "property_type": "rich_text"
+    },
+    "Type": {
+      "property_type": "select",
       "options": [
         { "name": "Entity", "color": "blue" },
         { "name": "Component", "color": "green" },
         { "name": "Module", "color": "purple" }
       ]
     },
-    {
-      "name": "Created At",
-      "type": "date"
+    "Created At": {
+      "property_type": "date"
     },
-    {
-      "name": "Tags",
-      "type": "multi_select",
+    "Tags": {
+      "property_type": "multi_select",
       "options": [
         { "name": "Core", "color": "red" },
         { "name": "Active", "color": "green" },
@@ -64,7 +63,7 @@ Store your schema and entries (optional) in the `plugins/` folder. The schema de
         { "name": "Reference", "color": "yellow" }
       ]
     }
-  ]
+  }
 }
 ```
 
@@ -74,16 +73,25 @@ Store your schema and entries (optional) in the `plugins/` folder. The schema de
 {
   "entries": [
     {
+      "Entity ID": "E001",
       "Name": "Alpha",
       "Type": "Entity",
       "Created At": "2023-10-15",
       "Tags": ["Core", "Active"]
     },
     {
+      "Entity ID": "E002",
       "Name": "Beta",
-      "Type": "Entity",
+      "Type": "Component",
       "Created At": "2023-10-10",
       "Tags": ["Archived", "Reference"]
+    },
+    {
+      "Entity ID": "E003",
+      "Name": "Gamma",
+      "Type": "Module",
+      "Created At": "2023-10-20",
+      "Tags": ["Core", "Active"]
     }
   ]
 }
