@@ -1,3 +1,15 @@
+## [1.0.2] - 2024-10-22
+
+### Bug Fixes
+
+- **cli**: Updated import paths to reflect new `notion_automation` package structure, ensuring proper module resolution and improved package organization.
+- **tests**: Corrected all test imports to match the updated `notion_automation` package path for the `cli`, `api`, and `models` modules.
+- **logging**: Added `notion_automation.log` to `.gitignore` to prevent logging files from being tracked in the repository.
+
+---
+
+This should cover the updates made based on the changes in the diff, focusing on the key bug fixes and improvements.
+
 ## [1.0.1] - 2024-10-22
 
 ### Chores

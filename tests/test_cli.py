@@ -1,6 +1,6 @@
 import pytest
 
-from cli import parse_natural_language_properties, parse_schema
+from notion_automation.cli import parse_natural_language_properties, parse_schema
 
 
 def test_parse_schema_natural_language():

@@ -1,7 +1,7 @@
 import pytest
 
-from notion_client.api import NotionClient
-from notion_client.models import SchemaConfig
+from notion_automation.notion_client.api import NotionClient
+from notion_automation.notion_client.models import SchemaConfig
 
 
 @pytest.fixture

@@ -1,5 +1,5 @@
-from notion_client.config import ConfigManager
-from notion_client.models import SchemaConfig
+from notion_automation.notion_client.config import ConfigManager
+from notion_automation.notion_client.models import SchemaConfig
 
 
 def test_load_schema(tmp_path):

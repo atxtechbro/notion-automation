@@ -2,9 +2,9 @@ import json
 
 import pytest
 
-from cli import parse_schema
-from notion_client.api import NotionClient
-from notion_client.models import EntryProperty, PropertyConfig, SchemaConfig
+from notion_automation.cli import parse_schema
+from notion_automation.notion_client.api import NotionClient
+from notion_automation.notion_client.models import EntryProperty, PropertyConfig, SchemaConfig
 
 
 @pytest.fixture

@@ -1,7 +1,7 @@
 import pytest
 from pydantic import ValidationError
 
-from notion_client.models import EntryProperty, PropertyConfig, SchemaConfig
+from notion_automation.notion_client.models import EntryProperty, PropertyConfig, SchemaConfig
 
 
 def test_schema_config():

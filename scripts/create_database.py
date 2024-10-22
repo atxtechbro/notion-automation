@@ -1,8 +1,8 @@
 import argparse
 import os
 
-from notion_client.api import NotionClient
-from notion_client.config import ConfigManager
+from notion_automation.notion_client.api import NotionClient
+from notion_automation.notion_client.config import ConfigManager
 
 
 def main(schema_name, entries_name):

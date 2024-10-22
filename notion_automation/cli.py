@@ -6,9 +6,9 @@ import sys
 
 from dotenv import load_dotenv
 
-from notion_client.api import NotionClient
-from notion_client.logger import logger
-from notion_client.models import EntryConfig, EntryProperty, PropertyConfig, PropertyOption, SchemaConfig
+from notion_automation.notion_client.api import NotionClient
+from notion_automation.notion_client.logger import logger
+from notion_automation.notion_client.models import EntryConfig, EntryProperty, PropertyConfig, PropertyOption, SchemaConfig
 
 # Load environment variables from .env
 load_dotenv()

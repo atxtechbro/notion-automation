@@ -14,3 +14,4 @@ venv/
 plugins
 
 *.log
+notion_automation.log
