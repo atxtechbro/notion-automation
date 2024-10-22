@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/atxtechbro/notion-automation/compare/v1.0.0...v1.0.1) (2024-10-22)
+
+
+### Bug Fixes
+
+* update import paths to reflect new notion_automation package structure ([47abe5e](https://github.com/atxtechbro/notion-automation/commit/47abe5e5974cd42a1dde6a9a3e43de9c32fda75b))
+
 ## [1.0.2] - 2024-10-22
 
 ### Bug Fixes
