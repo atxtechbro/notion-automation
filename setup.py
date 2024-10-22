@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 
 setup(
     name='notion_automation',
-    version='1.0.2',
+    version='1.0.3',
     description='Automate Notion database creation with JSON schemas',
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
