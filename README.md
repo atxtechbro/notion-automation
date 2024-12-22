@@ -1,6 +1,13 @@
 # Notion Automation
 
-Tool for automating Notion database creation and management using JSON schemas.
+A custom implementation for automating Notion database operations. This package provides direct API integration without relying on the official `notion-client` package.
+
+## Important Note
+
+This package is a standalone implementation and is **not** related to the official `notion-client` package. We've built our own client to:
+- Have more control over the API interactions
+- Implement custom schema handling
+- Provide simplified database operations
 
 ## Setup
 
@@ -100,3 +107,18 @@ Three log levels are used:
 - ERROR: API errors and exceptions
 
 Logs are written to both console and `notion_automation.log` file.
+
+## Implementation Details
+
+This package includes:
+- Custom Notion API client (`notion_automation.notion_client`)
+- Schema validation and parsing
+- Database creation and management
+- No dependencies on external Notion client libraries
+
+## Contributing
+
+When contributing, note that this package:
+1. Uses its own Notion API client implementation
+2. Does not depend on the official `notion-client` package
+3. Handles all API interactions directly
