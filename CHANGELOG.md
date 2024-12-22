@@ -87,6 +87,19 @@
 ### Features
 
 * **cli:** enhance CLI with subcommands for database management and add schema retrieval functionality ([7afec84](https://github.com/atxtechbro/notion-automation/commit/7afec8433dddc43b58781e778505f01549798670))
+* **notion_client:** implement database creation and entry management in NotionClient ([84506e1](https://github.com/atxtechbro/notion-automation/commit/84506e152df224b74552c7bd4326cd6f9a2b9276))
+
+# [1.1.0](https://github.com/atxtechbro/notion-automation/compare/v1.0.0...v1.1.0) (2024-12-22)
+
+
+### Bug Fixes
+
+* update import paths to reflect new notion_automation package structure ([47abe5e](https://github.com/atxtechbro/notion-automation/commit/47abe5e5974cd42a1dde6a9a3e43de9c32fda75b))
+
+
+### Features
+
+* **cli:** enhance CLI with subcommands for database management and add schema retrieval functionality ([7afec84](https://github.com/atxtechbro/notion-automation/commit/7afec8433dddc43b58781e778505f01549798670))
 
 ## [1.0.1](https://github.com/atxtechbro/notion-automation/compare/v1.0.0...v1.0.1) (2024-10-22)
 
