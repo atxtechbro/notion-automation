@@ -3,30 +3,49 @@ import json
 import pytest
 
 from notion_automation.cli import parse_schema
-from notion_automation.notion_client.api import NotionClient
-from notion_automation.notion_client.models import EntryProperty, PropertyConfig, SchemaConfig
+from notion_automation.notion_client import NotionClient
+from notion_automation.models import (
+    EntryProperty, 
+    PropertyConfig, 
+    SchemaConfig
+)
 
 
 @pytest.fixture
 def notion_client():
-    return NotionClient(api_key="fake_api_key")
+    return NotionClient(auth_token="fake_api_key")
 
 def test_load_schema_alternative_format():
     schema_json = '''
     {
         "title": "Test Schema",
         "properties": [
-            {"name": "Name", "type": "title"},
-            {"name": "Status", "type": "select", "options": ["To Do", "Done"]}
+            {
+                "name": "Name",
+                "type": "title",
+                "property_type": "title"
+            },
+            {
+                "name": "Status",
+                "type": "select",
+                "property_type": "select",
+                "options": [
+                    {"name": "To Do"},
+                    {"name": "Done"}
+                ]
+            }
         ]
     }
     '''
     schema_data = json.loads(schema_json)
     properties = parse_schema(schema_data)
     schema_config = SchemaConfig(title=schema_data['title'], properties=properties)
-    assert schema_config.title == "Test Schema"
+    
     assert "Name" in schema_config.properties
     assert schema_config.properties["Name"].property_type == "title"
+    assert "Status" in schema_config.properties
+    assert schema_config.properties["Status"].property_type == "select"
+    assert len(schema_config.properties["Status"].options) == 2
 
 def test_invalid_schema_format():
     schema_json = '''

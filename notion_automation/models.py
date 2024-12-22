@@ -51,6 +51,18 @@ class EntryProperty:
 
     @classmethod
     def from_value(cls, name: str, value: str, properties: Dict[str, PropertyConfig]):
+        """Create an EntryProperty from a value and schema properties.
+        
+        Args:
+            name: Property name
+            value: Property value
+            properties: Schema property configurations
+            
+        Raises:
+            ValueError: If property name is not found in schema
+        """
+        if name not in properties:
+            raise ValueError(f"Property '{name}' not found in schema")
         return cls(value=value, type=properties[name].property_type)
 
 @dataclass
