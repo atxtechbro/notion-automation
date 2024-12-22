@@ -22,6 +22,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install pytest
+          pip install -e .  # Install package in development mode
           
       - name: Run tests
-        run: pytest tests/
+        run: pytest
