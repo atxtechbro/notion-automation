@@ -125,6 +125,14 @@ class NotionClient:
         return formatted
 
     def _format_entry_property(self, prop):
+        """Format a property value for the Notion API."""
+        if isinstance(prop, str):
+            # Handle direct string values
+            return {"rich_text": [{"text": {"content": prop}}]}
+        
+        if not hasattr(prop, 'type'):
+            raise ValueError(f"Invalid property format: {prop}")
+        
         if prop.type == "title":
             return {"title": [{"text": {"content": prop.value}}]}
         elif prop.type == "rich_text":
@@ -134,17 +142,10 @@ class NotionClient:
         elif prop.type == "date":
             return {"date": {"start": prop.value}}
         else:
-            raise ValueError(f"Unsupported property type: {prop.type}") 
+            raise ValueError(f"Unsupported property type: {prop.type}")
 
     def get_database(self, database_id):
-        """Retrieve database schema from Notion.
-        
-        Args:
-            database_id (str): ID of the database to retrieve
-            
-        Returns:
-            dict: Database schema information
-        """
+        """Retrieve database schema from Notion."""
         url = f"{self.base_url}/databases/{database_id}"
         response = requests.get(url, headers=self.headers)
         
@@ -153,4 +154,7 @@ class NotionClient:
             logger.error(f"Response body: {response.text}")
             response.raise_for_status()
         
-        return response.json()
+        data = response.json()
+        # Extract plain text from title array
+        data["title"] = data["title"][0]["plain_text"] if data["title"] else ""
+        return data

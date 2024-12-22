@@ -120,6 +120,9 @@ def parse_schema(schema_data):
     """Parse schema data into properties."""
     properties = {}
     
+    if not isinstance(schema_data["properties"], (list, dict)):
+        raise ValueError("Properties must be a list or dictionary")
+    
     if isinstance(schema_data["properties"], list):
         # Natural language or list format
         for prop in schema_data["properties"]:
@@ -166,7 +169,12 @@ def parse_schema(schema_data):
     else:
         # Dictionary format
         for name, config in schema_data["properties"].items():
-            properties[name] = PropertyConfig(**config)
+            if "property_type" not in config:
+                raise ValueError(f"Property '{name}' is missing 'property_type'")
+            properties[name] = PropertyConfig(
+                property_type=config["property_type"],
+                options=[PropertyOption(**opt) for opt in config.get("options", [])]
+            )
     
     return properties
 

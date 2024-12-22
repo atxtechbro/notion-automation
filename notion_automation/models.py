@@ -23,6 +23,18 @@ class SchemaConfig:
     title: str
     properties: Dict[str, PropertyConfig]
 
+    def __post_init__(self):
+        """Validate and convert properties if needed."""
+        if not isinstance(self.properties, dict):
+            raise ValueError("Properties must be a dictionary")
+        
+        # Convert any dict properties to PropertyConfig
+        for name, prop in self.properties.items():
+            if isinstance(prop, dict):
+                self.properties[name] = PropertyConfig(**prop)
+            elif not isinstance(prop, PropertyConfig):
+                raise ValueError(f"Invalid property type for {name}")
+
 @dataclass
 class TaskProperty:
     value: str
