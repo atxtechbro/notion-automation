@@ -6,6 +6,19 @@ from notion_automation.logger import logger
 logger = logging.getLogger(__name__)
 
 class NotionClient:
+    """Client for interacting with Notion API to manage databases and entries.
+    
+    Handles creation of databases with custom schemas and adding entries to those databases.
+    Requires a valid Notion API key and page ID where databases will be created.
+    
+    Example usage:
+        client = NotionClient(auth_token="your-notion-api-key")
+        database_id = client.create_database(
+            parent_id="your-page-id",
+            schema=SchemaConfig(...)
+        )
+    """
+
     def __init__(self, auth_token):
         self.auth_token = auth_token
         self.base_url = "https://api.notion.com/v1"
@@ -16,6 +29,18 @@ class NotionClient:
         }
 
     def create_database(self, parent_id, schema):
+        """Create a new Notion database with specified schema.
+        
+        Args:
+            parent_id (str): ID of the parent page where database will be created
+            schema (SchemaConfig): Database schema configuration
+            
+        Returns:
+            str: ID of the created database
+            
+        Raises:
+            requests.exceptions.HTTPError: If API request fails
+        """
         url = f"{self.base_url}/databases"
         
         payload = {
@@ -54,6 +79,20 @@ class NotionClient:
         return formatted
 
     def _format_property(self, prop):
+        """Format a property configuration for Notion API.
+        
+        Handles different property types:
+        - title: Database title field
+        - rich_text: Multi-line text field
+        - select: Single-select with options
+        - date: Date field
+        
+        Args:
+            prop (PropertyConfig): Property configuration
+            
+        Returns:
+            dict: Formatted property for Notion API
+        """
         formatted = {"type": prop.property_type}
         
         if prop.property_type in ["select", "multi_select"] and prop.options:

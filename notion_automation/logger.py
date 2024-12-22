@@ -1,3 +1,14 @@
+"""
+Logging configuration for notion-automation.
+
+Log Levels:
+- DEBUG: Detailed API payloads and responses
+- INFO: General operation success
+- ERROR: API errors and exceptions
+
+Logs to both console and notion_automation.log file.
+"""
+
 import logging
 
 # Configure the logger
