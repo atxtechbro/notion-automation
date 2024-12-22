@@ -6,10 +6,18 @@ import sys
 
 from dotenv import load_dotenv
 
-from notion_client.api import NotionClient
-from notion_client.logger import logger
-from notion_client.models import PropertyConfig, PropertyOption, SchemaConfig, TaskConfig, TaskProperty
-from scripts.get_database import get_database_schema
+from notion_automation.notion_client import NotionClient
+from notion_automation.logger import logger
+from notion_automation.models import (
+    PropertyConfig, 
+    PropertyOption, 
+    SchemaConfig, 
+    TaskConfig, 
+    TaskProperty,
+    EntryConfig,
+    EntryProperty
+)
+from notion_automation.get_database import get_database_schema
 
 # Load environment variables from .env
 load_dotenv()
