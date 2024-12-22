@@ -5,6 +5,13 @@ from typing import Dict, List, Optional
 class PropertyOption:
     name: str
     color: Optional[str] = None
+    
+    def dict(self):
+        """Convert to dictionary representation."""
+        return {
+            "name": self.name,
+            "color": self.color
+        }
 
 @dataclass
 class PropertyConfig:

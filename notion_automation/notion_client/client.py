@@ -56,16 +56,25 @@ class NotionClient:
         if not response.ok:
             logger.error(f"Notion API error: {response.status_code}")
             logger.error(f"Response body: {response.text}")
+            raise Exception(f"Failed to create database: {response.text}")
         
-        response.raise_for_status()
         return response.json()["id"]
 
     def create_entry(self, database_id, entry):
+        """Create a new entry in the database.
+        
+        Args:
+            database_id (str): ID of the target database
+            entry (dict or EntryConfig): Entry data
+        """
         url = f"{self.base_url}/pages"
+        
+        # Handle both dict and EntryConfig inputs
+        properties = entry.properties if hasattr(entry, 'properties') else entry
         
         payload = {
             "parent": {"database_id": database_id},
-            "properties": self._format_entry_properties(entry.properties)
+            "properties": self._format_entry_properties(properties)
         }
         
         response = requests.post(url, headers=self.headers, json=payload)
@@ -126,3 +135,22 @@ class NotionClient:
             return {"date": {"start": prop.value}}
         else:
             raise ValueError(f"Unsupported property type: {prop.type}") 
+
+    def get_database(self, database_id):
+        """Retrieve database schema from Notion.
+        
+        Args:
+            database_id (str): ID of the database to retrieve
+            
+        Returns:
+            dict: Database schema information
+        """
+        url = f"{self.base_url}/databases/{database_id}"
+        response = requests.get(url, headers=self.headers)
+        
+        if not response.ok:
+            logger.error(f"Notion API error: {response.status_code}")
+            logger.error(f"Response body: {response.text}")
+            response.raise_for_status()
+        
+        return response.json()

@@ -117,42 +117,57 @@ def create_database(schema_path, entries_path=None, page_id=None):
         sys.exit(1)
 
 def parse_schema(schema_data):
-    """Parses the schema data into properties."""
+    """Parse schema data into properties."""
     properties = {}
-
+    
     if isinstance(schema_data["properties"], list):
-        # Check if it's natural language descriptions
-        if all(isinstance(p, str) for p in schema_data["properties"]):
-            properties = parse_natural_language_properties(schema_data["properties"])
-        else:
-            # List of property dicts
-            for prop in schema_data["properties"]:
-                name = prop.get("name")
-                property_type = prop.get("type")
-                if not name or not property_type:
-                    raise ValueError(f"Property definition is missing 'name' or 'type': {prop}")
-                options = prop.get("options", [])
-                property_options = [
+        # Natural language or list format
+        for prop in schema_data["properties"]:
+            if isinstance(prop, str):
+                # Natural language format
+                name, desc = prop.split(":", 1)
+                name = name.strip()
+                desc = desc.strip()
+                
+                if "date" in desc.lower():
+                    prop_type = "date"
+                elif any(word in desc.lower() for word in ["category", "type", "status"]):
+                    prop_type = "select"
+                    # Extract options from parentheses
+                    import re
+                    options_match = re.search(r'\((.*?)\)', desc)
+                    if options_match:
+                        options = [
+                            PropertyOption(name=opt.strip())
+                            for opt in options_match.group(1).split(",")
+                        ]
+                    else:
+                        options = None
+                else:
+                    prop_type = "rich_text"
+                    options = None
+                
+                properties[name] = PropertyConfig(
+                    property_type=prop_type,
+                    options=options
+                )
+            else:
+                # List of property objects format
+                name = prop["name"]
+                prop_type = prop["type"]
+                options = [
                     PropertyOption(name=opt) if isinstance(opt, str) else PropertyOption(**opt)
-                    for opt in options
+                    for opt in prop.get("options", [])
                 ]
                 properties[name] = PropertyConfig(
-                    property_type=property_type, options=property_options
+                    property_type=prop_type,
+                    options=options
                 )
-    elif isinstance(schema_data["properties"], dict):
-        # Existing logic for dict format
-        for name, prop in schema_data["properties"].items():
-            if 'property_type' not in prop:
-                raise ValueError(f"Property '{name}' is missing 'property_type'")
-            property_type = prop["property_type"]
-            options_data = prop.get("options", [])
-            options = [PropertyOption(**option) for option in options_data]
-            properties[name] = PropertyConfig(
-                property_type=property_type, options=options
-            )
     else:
-        raise ValueError("Invalid schema format for 'properties' field.")
-
+        # Dictionary format
+        for name, config in schema_data["properties"].items():
+            properties[name] = PropertyConfig(**config)
+    
     return properties
 
 def parse_natural_language_properties(property_descriptions):
