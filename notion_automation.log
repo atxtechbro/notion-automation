@@ -16,3 +16,25 @@
 2024-09-13 14:04:17,978 - notion_automation - ERROR - Failed to create task: {"object":"error","status":400,"code":"validation_error","message":"body failed validation. Fix one:\nbody.properties.Type.select.id should be defined, instead was `undefined`.\nbody.properties.Type.select.name should be a string, instead was `null`.","request_id":"def6977e-d052-43fb-b402-804df036cd60"}
 2024-09-13 19:01:28,060 - notion_automation - INFO - Database 'Test DB' created with ID: fake_database_id
 2024-09-13 19:01:28,062 - notion_automation - ERROR - Failed to create database: {"error": "Unauthorized"}
+2024-09-13 20:46:34,099 - notion_automation - ERROR - Error processing schema or tasks: Property 'Task' is not defined in the schema.
+2024-09-13 20:47:06,412 - notion_automation - INFO - Database 'Siphon CLI Utility Tests' created with ID: 1016bf94-c111-81ef-94d1-ed392899725c
+2024-09-13 20:48:09,407 - notion_automation - ERROR - Error processing schema or tasks: Property 'Task' is not defined in the schema.
+2024-09-13 20:51:18,810 - notion_automation - INFO - Database 'Siphon CLI Utility Tests' created with ID: 1016bf94-c111-815a-9ade-e18d9347f1a9
+2024-09-13 20:51:19,496 - notion_automation - INFO - Task created in database '1016bf94-c111-815a-9ade-e18d9347f1a9'.
+2024-09-13 20:51:19,907 - notion_automation - INFO - Task created in database '1016bf94-c111-815a-9ade-e18d9347f1a9'.
+2024-09-13 20:51:20,223 - notion_automation - INFO - Task created in database '1016bf94-c111-815a-9ade-e18d9347f1a9'.
+2024-09-13 20:51:20,623 - notion_automation - INFO - Task created in database '1016bf94-c111-815a-9ade-e18d9347f1a9'.
+2024-09-13 20:51:23,658 - notion_automation - INFO - Task created in database '1016bf94-c111-815a-9ade-e18d9347f1a9'.
+2024-09-13 20:51:24,010 - notion_automation - INFO - Task created in database '1016bf94-c111-815a-9ade-e18d9347f1a9'.
+2024-09-13 20:51:24,614 - notion_automation - INFO - Task created in database '1016bf94-c111-815a-9ade-e18d9347f1a9'.
+2024-09-13 20:51:25,027 - notion_automation - INFO - Task created in database '1016bf94-c111-815a-9ade-e18d9347f1a9'.
+2024-09-13 20:51:25,641 - notion_automation - INFO - Task created in database '1016bf94-c111-815a-9ade-e18d9347f1a9'.
+2024-09-13 20:51:27,074 - notion_automation - INFO - Task created in database '1016bf94-c111-815a-9ade-e18d9347f1a9'.
+2024-10-19 10:44:55,941 - notion_automation - INFO - Database 'Worship Night Guests' created with ID: 1246bf94-c111-81dd-8566-f0ea928e3f90
+2024-10-19 10:44:56,288 - notion_automation - INFO - Task created in database '1246bf94-c111-81dd-8566-f0ea928e3f90'.
+2024-10-19 10:44:56,724 - notion_automation - INFO - Task created in database '1246bf94-c111-81dd-8566-f0ea928e3f90'.
+2024-10-19 10:44:57,338 - notion_automation - INFO - Task created in database '1246bf94-c111-81dd-8566-f0ea928e3f90'.
+2024-10-19 10:46:08,577 - notion_automation - INFO - Database 'Worship Night Guests' created with ID: 1246bf94-c111-81fa-a5e0-f2832ce24354
+2024-10-19 10:46:09,202 - notion_automation - INFO - Task created in database '1246bf94-c111-81fa-a5e0-f2832ce24354'.
+2024-10-19 10:46:09,771 - notion_automation - INFO - Task created in database '1246bf94-c111-81fa-a5e0-f2832ce24354'.
+2024-10-19 10:46:10,208 - notion_automation - INFO - Task created in database '1246bf94-c111-81fa-a5e0-f2832ce24354'.

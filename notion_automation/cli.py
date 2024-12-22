@@ -6,9 +6,10 @@ import sys
 
 from dotenv import load_dotenv
 
-from notion_automation.notion_client.api import NotionClient
-from notion_automation.notion_client.logger import logger
-from notion_automation.notion_client.models import EntryConfig, EntryProperty, PropertyConfig, PropertyOption, SchemaConfig
+from notion_client.api import NotionClient
+from notion_client.logger import logger
+from notion_client.models import PropertyConfig, PropertyOption, SchemaConfig, TaskConfig, TaskProperty
+from scripts.get_database import get_database_schema
 
 # Load environment variables from .env
 load_dotenv()
@@ -177,16 +178,32 @@ def parse_natural_language_properties(property_descriptions):
     return properties
 
 if __name__ == "__main__":
-    # Set up argument parser
     parser = argparse.ArgumentParser(
-        description="Create a Notion database and add entries."
+        description="Manage Notion databases"
     )
-    parser.add_argument("--schema", required=True, help="Path to the JSON schema file.")
-    parser.add_argument("--entries", required=False, help="Path to the JSON entries file.")
-    parser.add_argument("--page-id", required=False, help="Target Notion Page ID to create the database in.")
-
-    # Parse the arguments
+    
+    # Create subparsers for different commands
+    subparsers = parser.add_subparsers(dest='command', help='Available commands')
+    
+    # Create database command
+    create_parser = subparsers.add_parser('create', help='Create a new database')
+    create_parser.add_argument("--schema", required=True, help="Path to the JSON schema file.")
+    create_parser.add_argument("--tasks", required=False, help="Path to the JSON tasks file.")
+    
+    # Get database schema command
+    get_parser = subparsers.add_parser('get-schema', help='Get schema of existing database')
+    get_parser.add_argument("--id", required=True, help="ID of the database to retrieve")
+    get_parser.add_argument("--output", help="Optional file path to save the schema")
+    
     args = parser.parse_args()
-
-    # Call the create_database function with the provided arguments
-    create_database(args.schema, args.entries, args.page_id)
+    
+    if args.command == 'create':
+        create_database(args.schema, args.tasks)
+    elif args.command == 'get-schema':
+        schema = get_database_schema(args.id)
+        if args.output:
+            with open(args.output, 'w') as f:
+                json.dump(schema, f, indent=2)
+            print(f"Schema saved to {args.output}")
+        else:
+            print(json.dumps(schema, indent=2))
