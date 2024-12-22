@@ -1,20 +1,20 @@
 import sys
 import json
-from notion_client import Client
+from notion_automation.notion_client import NotionClient
 import os
 from dotenv import load_dotenv
 
 def get_database_schema(database_id):
     """Retrieve and format the schema of a Notion database."""
     load_dotenv()
-    notion = Client(auth=os.getenv("NOTION_TOKEN"))
+    notion = NotionClient(auth_token=os.getenv("NOTION_API_KEY"))
     
     try:
-        database = notion.databases.retrieve(database_id=database_id)
+        database = notion.get_database(database_id)
         
         # Extract and format the properties schema
         schema = {
-            "title": database["title"][0]["plain_text"] if database.get("title") else "",
+            "title": database["title"],
             "properties": {}
         }
         
